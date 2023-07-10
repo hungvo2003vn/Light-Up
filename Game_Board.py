@@ -135,6 +135,7 @@ class Board:
             for pos in possible_hl:
                 
                 piece = self.PIECES_MAP[pos[0]][pos[1]]
+
                 if turn_on:
                     if pos[0] == row and pos[1] == col:
                         self.PIECES_MAP[pos[0]][pos[1]] = 'f' + 'r'
@@ -147,12 +148,19 @@ class Board:
                         self.Lighting.remove(pos)
                     except ValueError:
                         pass
+                    
+                    # If choosen cell is a light bulb -> delete the light first
+                    if pos[0] == row and pos[1] == col:
+                        self.PIECES_MAP[pos[0]][pos[1]] = piece[0] + '-'
 
+                        # No matter whether this cell is turn off or not we still mark the X if the type is RIGHT clicked
+                        if type == RIGHT:
+                            self.PIECES_MAP[pos[0]][pos[1]] = piece[0] + 'x'
+
+                    # If this cell is actually turn off
                     if pos not in self.Lighting:
-                        self.PIECES_MAP[pos[0]][pos[1]] = '-' + piece[1]
 
-                    if type == RIGHT and pos[0] == row and pos[1] == col:
-                        self.PIECES_MAP[pos[0]][pos[1]] = piece[0] + 'x'
+                        self.PIECES_MAP[pos[0]][pos[1]] = '-' + piece[1]
 
         return
 
