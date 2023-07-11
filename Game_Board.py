@@ -300,10 +300,10 @@ class Board:
         message = "Valid Solution"
         if not valid:
             message = "Overlap detected!"
-        elif not all_fill:
-            message = "Missed lights!"
         elif not right_neighbor:
             message = "Wrong num of neighbors!"
+        elif not all_fill:
+            message = "Missed lights!"
         
         game_over = valid and all_fill and right_neighbor
 
