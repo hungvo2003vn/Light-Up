@@ -12,6 +12,7 @@ class Board:
 
         self.BOARD = None
         self.PIECES_MAP = None
+        self.AI_MAP = None
 
         self.user = None
         self.ai_turn = False
@@ -36,8 +37,9 @@ class Board:
         if self.PIECES_MAP is not None:
             return
         
-        #self.PIECES_MAP = [[random.choice(ALL_PIECES) for x in range(0, BOARD_LENGTH)] for y in range(0, BOARD_LENGTH)]
-        self.PIECES_MAP = copy.deepcopy(TEST1)
+        TEST = copy.deepcopy(TEST1)
+        self.PIECES_MAP = TEST
+        self.AI_MAP = copy.deepcopy(TEST)
 
         # Randomly map creation
         # TODO
@@ -63,7 +65,8 @@ class Board:
         for y in range(0, BOARD_LENGTH):
             for x in range(0,BOARD_LENGTH):
 
-                pieces = self.PIECES_MAP[y][x]
+                pieces = self.get_value(y, x)
+
                 x_pos = x*CELL_SIZE + X_BOARD
                 y_pos = y*CELL_SIZE + Y_BOARD
 
@@ -109,60 +112,26 @@ class Board:
         return
 
     ############# Making Move #############
-    def make_move(self, Move, type):
 
-        row, col = Move[0], Move[1]
-        current_piece = self.PIECES_MAP[row][col]
-        turn_on = None
+    def get_value(self, row, col):
 
-        # Figure out cases
-        if current_piece == "fw" or current_piece == "fr":
-            turn_on = False
-        elif type == LEFT:
-            turn_on = True
+        if self.ai_turn:
+            return self.AI_MAP[row][col]
         
-        # Toggle Marking X
-        if turn_on is None:
-            if current_piece[1] == '-':
-                self.PIECES_MAP[row][col] = current_piece[0] + 'x'
-            else:
-                self.PIECES_MAP[row][col] = current_piece[0] + '-'
+        return self.PIECES_MAP[row][col]
+    
+    def set_value(self, row, col, value):
 
+        if self.ai_turn:
+            self.AI_MAP[row][col] = value
+        
         else:
-
-            possible_hl = self.possible_highlight(Move)
-
-            for pos in possible_hl:
-                
-                piece = self.PIECES_MAP[pos[0]][pos[1]]
-
-                if turn_on:
-                    if pos[0] == row and pos[1] == col:
-                        self.PIECES_MAP[pos[0]][pos[1]] = 'f' + 'r'
-                    else:
-                        self.PIECES_MAP[pos[0]][pos[1]] = 'f' + piece[1]
-                    self.Lighting += [pos]
-                else:
-
-                    try:
-                        self.Lighting.remove(pos)
-                    except ValueError:
-                        pass
-                    
-                    # If choosen cell is a light bulb -> delete the light first
-                    if pos[0] == row and pos[1] == col:
-                        self.PIECES_MAP[pos[0]][pos[1]] = piece[0] + '-'
-
-                        # No matter whether this cell is turn off or not we still mark the X if the type is RIGHT clicked
-                        if type == RIGHT:
-                            self.PIECES_MAP[pos[0]][pos[1]] = piece[0] + 'x'
-
-                    # If this cell is actually turn off
-                    if pos not in self.Lighting:
-
-                        self.PIECES_MAP[pos[0]][pos[1]] = '-' + piece[1]
-
+            self.PIECES_MAP[row][col] = value
+        
         return
+    
+    def same_pos(self, source, des):
+        return source[0] == des[0] and source[1] == des[1]
 
     def possible_highlight(self, pos):
 
@@ -199,7 +168,11 @@ class Board:
         if not self.inside_click(row, col):
             return False
 
-        piece = self.PIECES_MAP[row][col]
+        piece = None
+        if self.ai_turn:
+            piece = self.AI_MAP[row][col]
+        else:
+            piece = self.PIECES_MAP[row][col]
 
         # This cell is black
         if piece[0] == 'b':
@@ -207,6 +180,67 @@ class Board:
         
         return True
 
+    ################ MAKE MOVE FUNCTION ################
+    def make_move(self, Move, type):
+
+        row, col = Move[0], Move[1]
+        current_piece = self.get_value(row, col)
+        turn_on = None
+
+        # Figure out cases
+        if current_piece == "fw" or current_piece == "fr":
+            turn_on = False
+        elif type == LEFT:
+            turn_on = True
+        
+        # Toggle Marking X
+        if turn_on is None:
+            if current_piece[1] == '-':
+                self.set_value(row, col, current_piece[0] + 'x')
+            else:
+                self.set_value(row, col, current_piece[0] + '-')
+
+        else:
+
+            possible_hl = self.possible_highlight(Move)
+
+            for pos in possible_hl:
+                
+                piece = self.get_value(pos[0], pos[1])
+
+                if turn_on:
+                    
+                    # If this is the choosen cell -> this will be a light
+                    if self.same_pos(pos, [row, col]):
+                        self.set_value(pos[0], pos[1], 'f' + 'r')
+
+                    # This cell is illuminated by other
+                    else:
+                        self.set_value(pos[0], pos[1], 'f' + piece[1])
+
+                    self.Lighting += [pos]
+
+                else:
+
+                    # Try to remove the cell illuminated by other light
+                    try:
+                        self.Lighting.remove(pos)
+                    except ValueError:
+                        pass
+                    
+                    # If choosen cell is a light bulb -> delete the light first
+                    if self.same_pos(pos, [row, col]):
+                        self.set_value(pos[0], pos[1], piece[0] + '-')
+
+                        # No matter whether this cell is turn off or not we still mark the X if the type is RIGHT clicked
+                        if type == RIGHT:
+                            self.set_value(pos[0], pos[1], piece[0] + 'x')
+
+                    # If this cell is actually turn off
+                    if pos not in self.Lighting:
+                        self.set_value(pos[0], pos[1], '-' + piece[1])
+
+        return
 
     def checking_clicked(self, pos, type):
 
@@ -218,3 +252,80 @@ class Board:
             self.make_move([start_row, start_col], type)
 
         return
+    
+
+#################### CLASS SQUARE ####################
+class Cell:
+
+    def __init__(self, row, col, value):
+        
+        self.neighbors = []
+        self.visited = False
+        self.value = value
+        self.pos = [row, col]
+
+        self.is_bulb = False
+
+        # Only for White Cell
+        self.illuminated = False
+        self.source_illuminated = []
+
+    def add_neighbor(self, other_square):
+        self.neighbors += [other_square]
+    
+    def set_visited(self, bool):
+        self.visited = bool
+    
+    def same_pos(self, des):
+        return (self.pos[0] == des[0]) and (self.pos[1] == des[1])
+    
+    # Only for White Cell
+    def set_illuminated(self, cell):
+
+        self.illuminated = True
+        self.source_illuminated += [cell]
+
+        # Change value
+        self.value = 'f' +  self.value[1]
+
+        # This is the case setting a light up
+        if self.same_pos(cell.pos):
+
+            self.is_bulb = True
+            if self.is_overlap():
+                self.value = "fw"
+            else:
+                self.value = "fr"
+        return
+
+    def is_overlap(self):
+
+        if self.is_bulb and len(self.source_illuminated) > 1:
+            return True
+        return False
+
+    # Remember the X case
+    def reset_illuminated(self, cell):
+
+        try:
+            self.source_illuminated.remove(cell)
+        except ValueError:
+            pass
+
+        # Remove all
+        if self.source_illuminated == []:
+
+            self.source_illuminated = False
+            self.value = '-' +  self.value[1]
+
+        # Toggle itself
+        if self.same_pos(cell.pos):
+
+            self.is_bulb = False
+            self.value = "--" # Remember the X case will be "-x"
+        
+        return len(self.source_illuminated) == 0
+
+
+
+    

@@ -33,7 +33,7 @@ def GameOver_Button(display_screen, MyGame, MEDIUM_FONT):
     width = SCREEN_WIDTH/6
     height = 50
     x = (X_BOARD + BOARD_LENGTH*CELL_SIZE + SCREEN_WIDTH)/2 - (width)/2
-    y = (SCREEN_HEIGHT)/2 + 120
+    y = (SCREEN_HEIGHT)/2 + 180
     game_over_button = CreateButton(display_screen, x, y, width, height, content, MEDIUM_FONT, content_color=BLACK, bg_color=WHITE)
 
     # Check if button is clicked
@@ -132,6 +132,30 @@ def Undo_Button(display_screen, MyGame, MEDIUM_FONT):
 
             # Start code
             # TODO Mygame undo move
+            # End code
+
+            return True
+
+    return False
+
+def Submit_Button(display_screen, MyGame, MEDIUM_FONT):
+
+    content = "Submit"
+    width = SCREEN_WIDTH/6
+    height = 50
+    x = (X_BOARD + BOARD_LENGTH*CELL_SIZE + SCREEN_WIDTH)/2 - (width)/2
+    y = (SCREEN_HEIGHT)/2 + 120
+    button = CreateButton(display_screen, x, y, width, height, content, MEDIUM_FONT, content_color=BLACK, bg_color=WHITE)
+
+    # Check if button is clicked
+    click, _, _ = pg.mouse.get_pressed()
+    if click == 1:
+        mouse = pg.mouse.get_pos()
+        if button.collidepoint(mouse):
+            time.sleep(0.2)
+
+            # Start code
+            # TODO Mygame Submit
             # End code
 
             return True

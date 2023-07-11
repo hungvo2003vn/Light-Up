@@ -34,6 +34,7 @@ def main():
 
         MyGame.make_board_all(display_screen)
 
+        game_over = Submit_Button(display_screen, MyGame, MEDIUM_FONT)
         MyGame = GameOver_Button(display_screen, MyGame, MEDIUM_FONT)
         if not MyGame.ai_turn:
             MyGame.ai_turn = Solve_Button(display_screen, MEDIUM_FONT)
@@ -47,26 +48,22 @@ def main():
         
         # Handle User click event
         # Check if pieces is clicked
-        pos = None
-        type = None
-        for event in pg.event.get():
-            if event.type == QUIT:
-                pg.quit()
-                sys.exit()
-            elif event.type == pg.MOUSEBUTTONDOWN:
-                
-                if event.button == LEFT or event.button == RIGHT:
-                    pos = pg.mouse.get_pos()
-                    type = event.button
-        
-        if pos is not None:
-            MyGame.checking_clicked(pos, type)
+        else:
+            pos = None
+            type = None
+            for event in pg.event.get():
+                if event.type == QUIT:
+                    pg.quit()
+                    sys.exit()
+                elif event.type == pg.MOUSEBUTTONDOWN:
+                    
+                    if event.button == LEFT or event.button == RIGHT:
+                        pos = pg.mouse.get_pos()
+                        type = event.button
             
-                
+            if pos is not None:
+                MyGame.checking_clicked(pos, type)
             
-
-
-        
 
         # Update after each event
         pg.display.update()
