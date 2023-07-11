@@ -43,16 +43,12 @@ def main():
         _, message = Submit_Button(display_screen, MyGame, MEDIUM_FONT)
 
         # Create SUBMIT title
-        CreateTitle(display_screen, x + width//2, y - 240, message, MEDIUM_FONT, WHITE)
+        CreateTitle(display_screen, x + width//2, y - 300, message, MEDIUM_FONT, WHITE)
         
 
         MyGame = GameOver_Button(display_screen, MyGame, MEDIUM_FONT)
         if not MyGame.ai_turn:
             MyGame.ai_turn = Solve_Button(display_screen, MEDIUM_FONT)
-
-        if message != "":
-            pg.display.update()
-            time.sleep(2)
 
         # AI mode
         if MyGame.ai_turn:
@@ -60,6 +56,8 @@ def main():
             Next_Button(display_screen, MyGame, MEDIUM_FONT)
             All_Button(display_screen, MyGame, MEDIUM_FONT)
             Undo_Button(display_screen, MyGame, MEDIUM_FONT)
+            MyGame.ai_turn = User_Mode_Button(display_screen, MEDIUM_FONT)
+
         
         # Handle User click event
         # Check if pieces is clicked
@@ -82,6 +80,9 @@ def main():
 
         # Update after each event
         pg.display.update()
+        
+        if message != "":
+            time.sleep(2)
 
 if __name__ == '__main__':
     main()

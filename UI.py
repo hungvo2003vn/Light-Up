@@ -66,14 +66,34 @@ def Solve_Button(display_screen, MEDIUM_FONT):
 
     return False
 
-def Next_Button(display_screen, MyGame, MEDIUM_FONT):
+def User_Mode_Button(display_screen, MEDIUM_FONT):
 
-    content = "Next move"
+    content = "User Mode"
     width = SCREEN_WIDTH/6
     height = 50
     x = (X_BOARD + BOARD_LENGTH*CELL_SIZE + SCREEN_WIDTH)/2 - (width)/2
     y = (SCREEN_HEIGHT)/2 - 60
     button = CreateButton(display_screen, x, y, width, height, content, MEDIUM_FONT, content_color=BLACK, bg_color=WHITE)
+
+    # Check if button is clicked
+    click, _, _ = pg.mouse.get_pressed()
+    if click == 1:
+        mouse = pg.mouse.get_pos()
+        if button.collidepoint(mouse):
+            time.sleep(0.2)
+            
+            return False
+
+    return True
+
+def Next_Button(display_screen, MyGame, MEDIUM_FONT):
+
+    content = "->"
+    width = SCREEN_WIDTH/6
+    height = 50
+    x = (X_BOARD + BOARD_LENGTH*CELL_SIZE + SCREEN_WIDTH)/2 - (width)/2
+    y = (SCREEN_HEIGHT)/2
+    button = CreateButton(display_screen, x + width + 10, y, width//2, height, content, MEDIUM_FONT, content_color=BLACK, bg_color=WHITE)
 
     # Check if button is clicked
     click, _, _ = pg.mouse.get_pressed()
@@ -116,12 +136,12 @@ def All_Button(display_screen, MyGame, MEDIUM_FONT):
 
 def Undo_Button(display_screen, MyGame, MEDIUM_FONT):
 
-    content = "Undo"
+    content = "<-"
     width = SCREEN_WIDTH/6
     height = 50
     x = (X_BOARD + BOARD_LENGTH*CELL_SIZE + SCREEN_WIDTH)/2 - (width)/2
-    y = (SCREEN_HEIGHT)/2 + 60
-    button = CreateButton(display_screen, x, y, width, height, content, MEDIUM_FONT, content_color=BLACK, bg_color=WHITE)
+    y = (SCREEN_HEIGHT)/2
+    button = CreateButton(display_screen, x - width//2 - 10, y, width//2, height, content, MEDIUM_FONT, content_color=BLACK, bg_color=WHITE)
 
     # Check if button is clicked
     click, _, _ = pg.mouse.get_pressed()
