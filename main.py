@@ -22,6 +22,12 @@ def main():
 
     #Init game
     MyGame = Board(Font)
+    message = ""
+
+    # For title
+    width = SCREEN_WIDTH/6
+    x = (X_BOARD + BOARD_LENGTH*CELL_SIZE + SCREEN_WIDTH)/2 - (width)/2
+    y = (SCREEN_HEIGHT)/2 + 120
 
     while True:
 
@@ -34,10 +40,19 @@ def main():
 
         MyGame.make_board_all(display_screen)
 
-        game_over = Submit_Button(display_screen, MyGame, MEDIUM_FONT)
+        _, message = Submit_Button(display_screen, MyGame, MEDIUM_FONT)
+
+        # Create SUBMIT title
+        CreateTitle(display_screen, x + width//2, y - 240, message, MEDIUM_FONT, WHITE)
+        
+
         MyGame = GameOver_Button(display_screen, MyGame, MEDIUM_FONT)
         if not MyGame.ai_turn:
             MyGame.ai_turn = Solve_Button(display_screen, MEDIUM_FONT)
+
+        if message != "":
+            pg.display.update()
+            time.sleep(2)
 
         # AI mode
         if MyGame.ai_turn:

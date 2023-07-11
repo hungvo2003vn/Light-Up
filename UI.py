@@ -152,15 +152,10 @@ def Submit_Button(display_screen, MyGame, MEDIUM_FONT):
     if click == 1:
         mouse = pg.mouse.get_pos()
         if button.collidepoint(mouse):
-            time.sleep(0.2)
+            
+            return MyGame.is_over()
 
-            # Start code
-            # TODO Mygame Submit
-            # End code
-
-            return True
-
-    return False
+    return False, ""
 
 
 
