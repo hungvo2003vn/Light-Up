@@ -26,6 +26,27 @@ class Cell:
     def same_pos(self, des):
         return ( (self.pos[0] == des[0]) and (self.pos[1] == des[1]) )
     
+    # Only for Black Cell
+    def num_neighbor_lights(self):
+
+        if self.value[0] != 'b':
+            return None, None
+        
+        # Get current request
+        need = None
+        if self.value[1] == '-':
+            need = "Any"
+        else:
+            need = int(self.value[1])
+        
+        # Start counting
+        count_light = 0
+        for neighbor in self.neighbors:
+            if neighbor.value == "fr" or neighbor.value == "fw":
+                count_light += 1
+
+        return need, count_light
+    
     # Only for White Cell
     def set_illuminated(self, cell):
 

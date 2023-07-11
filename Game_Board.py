@@ -51,6 +51,28 @@ class Board:
                 self.AI_MAP[y][x] = Cell(y, x, TEST[y][x])
 
         # Add neighbor
+        for y in range(BOARD_LENGTH):
+            for x in range(BOARD_LENGTH):
+
+                user_cell = self.PIECES_MAP[y][x]
+                ai_cell = self.AI_MAP[y][x]
+
+                up = [y - 1, x]
+                down = [y + 1, x]
+                left = [y, x - 1]
+                right = [y, x + 1]
+                directions = [up, down, left, right]
+
+                for pos in directions:
+                    row, col = pos[0], pos[1]
+
+                    if self.inside_click(row, col):
+                        user_neighbor = self.PIECES_MAP[row][col]
+                        ai_neighbor = self.AI_MAP[row][col]
+
+                        user_cell.add_neighbor(user_neighbor)
+                        ai_cell.add_neighbor(ai_neighbor)
+
         # Randomly map creation
         # TODO
         # Your Code here
@@ -257,13 +279,17 @@ class Board:
         
         all_fill = True
         valid = True
+        right_neighbor = True
         game_over = False
 
         for row in MAP:
             for ele in row:
 
                 if ele.value[0] == 'b':
-                    continue
+                    need, count = ele.num_neighbor_lights()
+                    if need != None and need != "Any":
+                        if need != count:
+                            right_neighbor = False
 
                 if ele.value[0] == '-':
                     all_fill = False
@@ -276,8 +302,10 @@ class Board:
             message = "Overlap detected!"
         elif not all_fill:
             message = "Missed lights!"
+        elif not right_neighbor:
+            message = "Wrong num of neighbors!"
         
-        game_over = valid and all_fill
+        game_over = valid and all_fill and right_neighbor
 
         return game_over, message
 
