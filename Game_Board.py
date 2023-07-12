@@ -24,6 +24,12 @@ class Board:
 
         self.User_move_logs = []
         self.AI_move_logs = []
+
+        # For AI's solver
+        self.Black_cells = []
+        self.White_cells = []
+        self.Solutions = []
+        self.solved = False
     
     def make_board(self, display_screen):
 
@@ -72,6 +78,9 @@ class Board:
 
                         user_cell.add_neighbor(user_neighbor)
                         ai_cell.add_neighbor(ai_neighbor)
+
+        # Split Black_cells and valid White_cells
+        self.collect_Black_White_cells()
 
         # Randomly map creation
         # TODO
@@ -357,6 +366,171 @@ class Board:
                 move_logs.pop()
 
         return
+    
+    ###################### For AI solver ######################
+    def collect_Black_White_cells(self):
+        
+        # Collect
+        for row in self.AI_MAP:
+            for cell in row:
+                if cell.value[0] == 'b':
+                    self.Black_cells.append(cell)
+                else:
+                    self.White_cells.append(cell)
+        
+        # Filter White_cells
+        for cell in self.Black_cells:
+
+            # 0 light around
+            if cell.value[1] == '0':
+
+                for neighbor in cell.neighbors:
+
+                    # Remove 
+                    try:
+                        self.White_cells.remove(neighbor)
+                    except ValueError:
+                        pass
+
+            # 2 - corner black cell
+            elif cell.value[1] == '2' and cell.pos[0] in [0, BOARD_LENGTH] and cell.pos[1] in [0, BOARD_LENGTH]:
+
+                for neighbor in cell.neighbors:
+
+                    # Make move
+                    self.make_move(neighbor.pos, LEFT)
+                    # Add to solution
+                    self.Solutions.append(neighbor.pos)
+
+                    # Remove
+                    try:
+                        self.White_cells.remove(neighbor)
+                    except ValueError:
+                        pass
+
+            # 3 - attach wall cell
+            elif cell.value[1] == '3' and (cell.pos[0] in [0, BOARD_LENGTH] or cell.pos[1] in [0, BOARD_LENGTH]):
+
+                for neighbor in cell.neighbors:
+
+                    # Make move
+                    self.make_move(neighbor.pos, LEFT)
+                    # Add to solution
+                    self.Solutions.append(neighbor.pos)
+
+                    # Remove
+                    try:
+                        self.White_cells.remove(neighbor)
+                    except ValueError:
+                        pass
+        return
+    
+    def AI_solver(self):
+
+        vertex = []
+        temporary_solution = []
+
+        # Get all valid vertex
+        for cell in self.White_cells:
+            vertex.append(cell)
+
+        self.DFS(vertex, temporary_solution)
+        self.Solutions += temporary_solution
+        self.solved = True
+
+        while len(self.AI_move_logs) > 0:
+            self.undo_move()
+
+        return
+    
+    def DFS(self, vertex, temporary_solution):
+
+        if len(vertex) == 0:
+            game_over, _ = self.is_over()
+            return game_over
+        
+        top = vertex.pop(0)
+        
+        actions = [True, False]
+
+        for action in actions:
+
+            # This action is to placing light, but already illuminated so move on next action
+            if action and top.illuminated:
+                continue
+            
+            # Place light at this pos
+            if action and not top.illuminated:
+                self.make_move(top.pos, LEFT)
+                temporary_solution.append(top.pos)
+            
+            # Do the DFS search
+            valid = self.DFS(vertex, temporary_solution)
+
+            # If this case is placing a light
+            if action and not top.illuminated:
+                self.undo_move()
+
+                # If not valid solution, remove the light at this top.pos
+                if not valid:
+                    try:
+                        temporary_solution.remove(top.pos)
+                    except ValueError:
+                        pass
+            
+            # If found a valid solution
+            if valid:
+                return True
+        
+        return
+
+        # valid = None
+        # for action in actions:
+
+        #     # This action is to placing light
+        #     if action:
+
+        #         if not top.illuminated:
+        #             # Place light at this pos
+        #             self.make_move(top.pos, LEFT)
+        #             temporary_solution.append(top.pos)
+            
+        #             # Do the DFS search
+        #             valid = self.DFS(vertex, temporary_solution)
+
+        #             # Undo visit
+        #             self.undo_move()
+
+        #             # If not valid solution, remove the light at this top.pos
+        #             if not valid:
+        #                 try:
+        #                     temporary_solution.remove(top.pos)
+        #                 except ValueError:
+        #                     pass
+        #             else: # If found a valid solution
+        #                 return True
+        #     else:
+        #         # Do the DFS search
+        #         valid = self.DFS(vertex, temporary_solution)
+
+        #         # If found a valid solution
+        #         if valid:
+        #             return True
+        
+        # return valid
+
+
+
+
+
+            
+                
+
+
+
+
+
+
 
 
     

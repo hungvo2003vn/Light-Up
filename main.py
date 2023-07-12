@@ -49,15 +49,40 @@ def main():
         MyGame = GameOver_Button(display_screen, MyGame, MEDIUM_FONT)
         if not MyGame.ai_turn:
             MyGame.ai_turn = Solve_Button(display_screen, MEDIUM_FONT)
+            if MyGame.ai_turn:
+                if not MyGame.solved:
+                    # Update UI immediately
+                    CreateTitle(display_screen, x + width//2, y - 300, "AI solving...", MEDIUM_FONT, WHITE)
+                    pg.display.update()
+                    time.sleep(2)
+                    # Solving
+                    MyGame.AI_solver()
+                    continue
 
         # AI mode
         if MyGame.ai_turn:
 
-            Next_Button(display_screen, MyGame, MEDIUM_FONT)
-            All_Button(display_screen, MyGame, MEDIUM_FONT)
-            Undo_Button(display_screen, MyGame, MEDIUM_FONT)
-            MyGame.ai_turn = User_Mode_Button(display_screen, MEDIUM_FONT)
+            next_clicked = Next_Button(display_screen, MyGame, MEDIUM_FONT)
+            all_clicked = All_Button(display_screen, MyGame, MEDIUM_FONT)
+            undo_clicked = Undo_Button(display_screen, MyGame, MEDIUM_FONT)
+            switch_clicked = User_Mode_Button(display_screen, MEDIUM_FONT)
 
+            if all_clicked:
+                
+                if len(MyGame.AI_move_logs) != len(MyGame.Solutions):
+
+                    # Undo all past moves
+                    while len(MyGame.AI_move_logs) > 0:
+                        MyGame.undo_move()
+
+                    # Making moves
+                    for Move in MyGame.Solutions:
+                        MyGame.make_move(Move, LEFT)
+
+                print('####################################################')
+                print(MyGame.Solutions)
+
+            MyGame.ai_turn = switch_clicked
         
         # Handle User click event
         # Check if pieces is clicked

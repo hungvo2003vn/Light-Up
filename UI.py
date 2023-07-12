@@ -102,9 +102,9 @@ def Next_Button(display_screen, MyGame, MEDIUM_FONT):
         if button.collidepoint(mouse):
             time.sleep(0.2)
 
-            # Start code
-            # TODO Mygame next move
-            # End code
+            index = len(MyGame.AI_move_logs)
+            if index < len(MyGame.Solutions):
+                MyGame.make_move(MyGame.Solutions[index], LEFT)
 
             return True
 
@@ -125,11 +125,7 @@ def All_Button(display_screen, MyGame, MEDIUM_FONT):
         mouse = pg.mouse.get_pos()
         if button.collidepoint(mouse):
             time.sleep(0.2)
-
-            # Start code
-            # TODO Mygame all move
-            # End code
-
+            
             return True
 
     return False
