@@ -62,6 +62,9 @@ def main():
         # Handle User click event
         # Check if pieces is clicked
         else:
+
+            Undo_User_Button(display_screen, MyGame, MEDIUM_FONT)
+
             pos = None
             type = None
             for event in pg.event.get():

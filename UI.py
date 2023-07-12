@@ -149,10 +149,28 @@ def Undo_Button(display_screen, MyGame, MEDIUM_FONT):
         mouse = pg.mouse.get_pos()
         if button.collidepoint(mouse):
             time.sleep(0.2)
+            MyGame.undo_move()
+            
+            return True
 
-            # Start code
-            # TODO Mygame undo move
-            # End code
+    return False
+
+def Undo_User_Button(display_screen, MyGame, MEDIUM_FONT):
+
+    content = "Undo Move"
+    width = SCREEN_WIDTH/6
+    height = 50
+    x = (X_BOARD + BOARD_LENGTH*CELL_SIZE + SCREEN_WIDTH)/2 - (width)/2
+    y = (SCREEN_HEIGHT)/2
+    button = CreateButton(display_screen, x, y - 60, width, height, content, MEDIUM_FONT, content_color=BLACK, bg_color=WHITE)
+
+    # Check if button is clicked
+    click, _, _ = pg.mouse.get_pressed()
+    if click == 1:
+        mouse = pg.mouse.get_pos()
+        if button.collidepoint(mouse):
+            time.sleep(0.2)
+            MyGame.undo_move()
 
             return True
 

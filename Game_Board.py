@@ -22,8 +22,8 @@ class Board:
 
         self.Font = Font
 
-        self.Lighting = []
-        self.Move_logs = []
+        self.User_move_logs = []
+        self.AI_move_logs = []
     
     def make_board(self, display_screen):
 
@@ -227,6 +227,9 @@ class Board:
         current_piece = self.get_value(row, col)
         turn_on = None
 
+        # Add to move_log
+        self.add_logs(pos=Move, value_1=current_piece.value[1], type=type)
+
         # Figure out cases
         if current_piece.value == "fw" or current_piece.value == "fr":
             turn_on = False
@@ -309,10 +312,51 @@ class Board:
 
         return game_over, message
 
+    ################ Undo Move ################
+    def add_logs(self, pos, value_1, type):
+        if self.ai_turn:
+            self.AI_move_logs += [[pos, [value_1, type]]]
+        else:
+            self.User_move_logs += [[pos, [value_1, type]]]
+        return
     
+    def undo_move(self):
 
+        latest_move = None
+        move_logs = None
 
+        if self.ai_turn:
+            move_logs = self.AI_move_logs
+        else:
+            move_logs = self.User_move_logs
+            
+        # If move_log is None
+        if len(move_logs) == 0:
+            return
+        
+        # Get latest move
+        latest_move = move_logs.pop()
 
+        # Get all value from latest move
+        pos = latest_move[0]
+        value_1 = latest_move[1][0]
+        type_click = latest_move[1][1]
+
+        # Undo Move
+        self.make_move(Move=pos, type=type_click)
+        move_logs.pop()
+
+        if value_1 != '-':
+            if value_1 == 'x':
+                undo_type_click = RIGHT
+            else:
+                undo_type_click = LEFT
+
+            if undo_type_click != type_click:
+                self.make_move(Move=pos, type=undo_type_click)
+                move_logs.pop()
+
+        return
 
 
     
