@@ -46,7 +46,7 @@ class Board:
         if self.PIECES_MAP is not None:
             return
         
-        TEST = copy.deepcopy(TEST1)
+        # TEST = copy.deepcopy(TEST2) # Can change the test
         self.PIECES_MAP = copy.deepcopy(TEST)
         self.AI_MAP = copy.deepcopy(TEST)
 
@@ -443,83 +443,76 @@ class Board:
 
         return
     
-    def DFS(self, vertex, temporary_solution):
+    def DFS(self, vertex, temporary_solution, level = 0):
 
-        if len(vertex) == 0:
+        # if level >= len(vertex):
+        #     game_over, _ = self.is_over()
+        #     return game_over
+
+        # valid = False
+        # top = vertex[level]
+
+        # if not top.illuminated:
+
+        #     # Place light at this pos (Visit)
+        #     self.make_move(top.pos, LEFT)
+        #     temporary_solution.append(top.pos)
+
+        #     # Do the DFS search
+        #     valid = self.DFS(vertex, temporary_solution, level + 1)
+
+        #     # If solution was found
+        #     if valid:
+
+        #         # Undo visit
+        #         self.make_move(top.pos, LEFT)
+
+        #         return True
+
+        #     # Do the DFS search (second chance)
+        #     valid = self.DFS(vertex, temporary_solution, level + 1)
+
+        #     # Undo visit
+        #     self.make_move(top.pos, LEFT)
+
+        #     if not valid:
+        #         temporary_solution.remove(top.pos)
+
+        #     return self.DFS(vertex, temporary_solution, level + 1)
+
+        # return self.DFS(vertex, temporary_solution, level + 1)
+
+        if level >= len(vertex):
             game_over, _ = self.is_over()
             return game_over
-        
-        top = vertex.pop(0)
-        
-        actions = [True, False]
 
-        for action in actions:
+        top = vertex[level]
 
-            # This action is to placing light, but already illuminated so move on next action
-            if action and top.illuminated:
-                continue
-            
-            # Place light at this pos
-            if action and not top.illuminated:
-                self.make_move(top.pos, LEFT)
-                temporary_solution.append(top.pos)
-            
+        if not top.illuminated:
+
+            # Place light at this pos (Visit)
+            self.make_move(top.pos, LEFT)
+            temporary_solution.append(top.pos)
+
             # Do the DFS search
-            valid = self.DFS(vertex, temporary_solution)
+            valid = self.DFS(vertex, temporary_solution, level + 1)
 
-            # If this case is placing a light
-            if action and not top.illuminated:
+            # If solution was found
+            if valid:
+
+                # Undo visit
                 self.undo_move()
 
-                # If not valid solution, remove the light at this top.pos
-                if not valid:
-                    try:
-                        temporary_solution.remove(top.pos)
-                    except ValueError:
-                        pass
-            
-            # If found a valid solution
-            if valid:
                 return True
-        
-        return
 
-        # valid = None
-        # for action in actions:
+            # Undo visit
+            self.undo_move()
 
-        #     # This action is to placing light
-        #     if action:
+            if not valid:
+                temporary_solution.remove(top.pos)
 
-        #         if not top.illuminated:
-        #             # Place light at this pos
-        #             self.make_move(top.pos, LEFT)
-        #             temporary_solution.append(top.pos)
-            
-        #             # Do the DFS search
-        #             valid = self.DFS(vertex, temporary_solution)
-
-        #             # Undo visit
-        #             self.undo_move()
-
-        #             # If not valid solution, remove the light at this top.pos
-        #             if not valid:
-        #                 try:
-        #                     temporary_solution.remove(top.pos)
-        #                 except ValueError:
-        #                     pass
-        #             else: # If found a valid solution
-        #                 return True
-        #     else:
-        #         # Do the DFS search
-        #         valid = self.DFS(vertex, temporary_solution)
-
-        #         # If found a valid solution
-        #         if valid:
-        #             return True
-        
-        # return valid
-
-
+        # Not placing a light
+        return self.DFS(vertex, temporary_solution, level + 1)
 
 
 

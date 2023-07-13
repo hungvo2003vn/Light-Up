@@ -57,7 +57,7 @@ def main():
                     time.sleep(2)
                     # Solving
                     MyGame.AI_solver()
-                    continue
+                continue
 
         # AI mode
         if MyGame.ai_turn:
