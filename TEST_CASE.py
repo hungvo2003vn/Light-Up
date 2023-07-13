@@ -1,4 +1,3 @@
-import random
 
 TEST1 = [
     ["--", "--", "b0", "--", "--", "--", "--"],
@@ -21,4 +20,3 @@ TEST2 = [
 ]
 
 LIST_TEST = [TEST1, TEST2]
-TEST = random.choice(LIST_TEST)

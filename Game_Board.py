@@ -46,7 +46,7 @@ class Board:
         if self.PIECES_MAP is not None:
             return
         
-        # TEST = copy.deepcopy(TEST2) # Can change the test
+        TEST = random.choice(LIST_TEST)
         self.PIECES_MAP = copy.deepcopy(TEST)
         self.AI_MAP = copy.deepcopy(TEST)
 
