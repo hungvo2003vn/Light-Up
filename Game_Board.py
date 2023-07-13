@@ -3,9 +3,9 @@ import pygame as pg
 from pygame.locals import *
 import UI
 import copy
-import random
 from TEST_CASE import *
 from Cell_Board import *
+from Map_generator import *
 
 #################### CLASS BOARD ####################
 
@@ -47,6 +47,7 @@ class Board:
             return
         
         TEST = random.choice(LIST_TEST)
+        #TEST = self.map_creation()
         self.PIECES_MAP = copy.deepcopy(TEST)
         self.AI_MAP = copy.deepcopy(TEST)
 
@@ -80,11 +81,9 @@ class Board:
                         ai_cell.add_neighbor(ai_neighbor)
 
         # Split Black_cells and valid White_cells
+        self.ai_turn = True
         self.collect_Black_White_cells()
-
-        # Randomly map creation
-        # TODO
-        # Your Code here
+        self.ai_turn = False
 
         return
     
@@ -235,7 +234,7 @@ class Board:
         row, col = Move[0], Move[1]
         current_piece = self.get_value(row, col)
         turn_on = None
-
+        
         # Add to move_log
         self.add_logs(pos=Move, value_1=current_piece.value[1], type=type)
 
@@ -275,7 +274,6 @@ class Board:
         start_row = (int)((pos[1] - Y_BOARD) // CELL_SIZE)
 
         if self.valid_click(start_row, start_col):
-
             self.make_move([start_row, start_col], type)
         print([start_row, start_col])
         return
@@ -426,6 +424,11 @@ class Board:
         return
     
     def AI_solver(self):
+        
+        game_over, message = self.is_over()
+        if not game_over and message == "Overlap detected!":
+            self.solved = True
+            return False
 
         vertex = []
         temporary_solution = []
@@ -434,54 +437,17 @@ class Board:
         for cell in self.White_cells:
             vertex.append(cell)
 
-        self.DFS(vertex, temporary_solution)
+        found_solution = self.DFS(vertex, temporary_solution)
         self.Solutions += temporary_solution
         self.solved = True
 
         while len(self.AI_move_logs) > 0:
             self.undo_move()
 
-        return
+        return found_solution
     
     def DFS(self, vertex, temporary_solution, level = 0):
-
-        # if level >= len(vertex):
-        #     game_over, _ = self.is_over()
-        #     return game_over
-
-        # valid = False
-        # top = vertex[level]
-
-        # if not top.illuminated:
-
-        #     # Place light at this pos (Visit)
-        #     self.make_move(top.pos, LEFT)
-        #     temporary_solution.append(top.pos)
-
-        #     # Do the DFS search
-        #     valid = self.DFS(vertex, temporary_solution, level + 1)
-
-        #     # If solution was found
-        #     if valid:
-
-        #         # Undo visit
-        #         self.make_move(top.pos, LEFT)
-
-        #         return True
-
-        #     # Do the DFS search (second chance)
-        #     valid = self.DFS(vertex, temporary_solution, level + 1)
-
-        #     # Undo visit
-        #     self.make_move(top.pos, LEFT)
-
-        #     if not valid:
-        #         temporary_solution.remove(top.pos)
-
-        #     return self.DFS(vertex, temporary_solution, level + 1)
-
-        # return self.DFS(vertex, temporary_solution, level + 1)
-
+        
         if level >= len(vertex):
             game_over, _ = self.is_over()
             return game_over
@@ -490,31 +456,34 @@ class Board:
 
         if not top.illuminated:
 
-            # Place light at this pos (Visit)
+            # Place light at this pos (Visited = True)
             self.make_move(top.pos, LEFT)
             temporary_solution.append(top.pos)
 
             # Do the DFS search
             valid = self.DFS(vertex, temporary_solution, level + 1)
 
-            # If solution was found
-            if valid:
-
-                # Undo visit
-                self.undo_move()
-
-                return True
-
-            # Undo visit
+            # Undo visit (Visited = False)
             self.undo_move()
 
-            if not valid:
+            # If solution was found
+            if valid:
+                return True
+            else:
                 temporary_solution.remove(top.pos)
 
         # Not placing a light
         return self.DFS(vertex, temporary_solution, level + 1)
 
+    ###################### MAP GENERATOR ######################
+    def map_creation(self):
 
+        # Example usage
+        MY_MAP = map_generator(BOARD_LENGTH, MAP_PIECES)
+        MY_MAP.generate_map()
+        MY_MAP.print_map()
+        
+        return copy.deepcopy(MY_MAP.grid)
 
             
                 

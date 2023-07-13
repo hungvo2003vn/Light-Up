@@ -34,3 +34,4 @@ Y_BOARD = (SCREEN_HEIGHT - CELL_SIZE * BOARD_LENGTH)/2
 
 PIECES = ["fr", "fw"]
 ALL_PIECES = ["b-", "b0", "b1", "b2", "b3", "b4", "fr", "fw", "--", "f-", "-x", "fx"]
+MAP_PIECES = ["b-", "b0", "b1", "b2", "b3", "b4"]

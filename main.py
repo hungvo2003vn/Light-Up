@@ -23,6 +23,7 @@ def main():
     #Init game
     MyGame = Board(Font)
     message = ""
+    found_solution = False
 
     # For title
     width = SCREEN_WIDTH/6
@@ -55,8 +56,19 @@ def main():
                     CreateTitle(display_screen, x + width//2, y - 300, "AI solving...", MEDIUM_FONT, WHITE)
                     pg.display.update()
                     time.sleep(2)
+
                     # Solving
-                    MyGame.AI_solver()
+                    found_solution = MyGame.AI_solver()
+
+
+                elif not found_solution:
+                    
+                    # Update UI immediately
+                    CreateTitle(display_screen, x + width//2, y - 300, "No solution", MEDIUM_FONT, WHITE)
+                    pg.display.update()
+                    time.sleep(2)
+
+                MyGame.ai_turn = found_solution
                 continue
 
         # AI mode
