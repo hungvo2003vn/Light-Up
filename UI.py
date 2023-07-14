@@ -39,18 +39,19 @@ class Game_Button:
         self.MyGame = MyGame
         self.font = font
 
-        # "content": ["Play Again", "Solution", "User Mode", "->", "Solve All", "<-", "Undo Move", "Submit"]
+        # "content": ["Play Again", "Solution", "User Mode", "->", "Solve All", "<-", "Undo Move", "Submit", "Clear"]
 
         self.button_list = {
             "Play Again": 0, "Solution": 1, "User Mode": 2,
-            "->": 3, "Solve All": 4, "<-": 5, "Undo Move": 6, "Submit": 7
+            "->": 3, "Solve All": 4, "<-": 5, "Undo Move": 6, 
+            "Submit": 7, "Clear": 8
         }
 
         self.button_adjustment = {
-            "width_scale": [1, 1, 1, 2, 1, 2, 1, 1],
-            "height_scale": [1, 1, 1, 1, 1, 1, 1, 1],
-            "x_offset": [0, 0, 0, self.width + 10, 0, -self.width//2 - 10, 0, 0],
-            "y_offset": [180, 0, -60, 0, 0, 0, -60, 120]
+            "width_scale": [1, 1, 1, 2, 1, 2, 1, 1, 1],
+            "height_scale": [1, 1, 1, 1, 1, 1, 1, 1, 1],
+            "x_offset": [0, 0, 0, self.width + 10, 0, -self.width//2 - 10, 0, 0, 0],
+            "y_offset": [180, 0, -60, 0, 0, 0, -60, 120, 60]
         }
 
     def Init_Button(self, content):
@@ -112,6 +113,9 @@ class Game_Button:
                     self.Button_Title(message)
 
                     return over, message
+                
+                elif content == "Clear":
+                    self.MyGame.clear_moves()
 
                 return True
 

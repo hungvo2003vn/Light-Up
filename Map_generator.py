@@ -92,11 +92,13 @@ class map_generator:
         
         for row in range(self.n):
             for col in range(self.n):
-                if not self.touch_wall(row, col):
-                    self.black_cell_count = self.find_valid(row, col)
+                #if not self.touch_wall(row, col):
+                    #self.black_cell_count = self.find_valid(row, col)
                 #if grid[row][col][0] == 'b':
                     #print(grid[row][col], white_need(grid, row, col),[row,col] ,is_valid_placement(grid, row, col))
-        
+
+                self.black_cell_count = self.find_valid(row, col)
+                
         return self.grid
 
     def print_map(self):

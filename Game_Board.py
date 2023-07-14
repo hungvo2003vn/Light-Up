@@ -48,8 +48,8 @@ class Board:
         if self.PIECES_MAP is not None:
             return
         
-        TEST = random.choice(LIST_TEST)
-        #TEST = self.map_creation()
+        #TEST = random.choice(LIST_TEST)
+        TEST = self.map_creation()
         self.PIECES_MAP = copy.deepcopy(TEST)
         self.AI_MAP = copy.deepcopy(TEST)
 
@@ -280,6 +280,18 @@ class Board:
         print([start_row, start_col])
         return
     
+    def clear_moves(self):
+
+        move_logs = None
+        if self.ai_turn:
+            move_logs = self.AI_move_logs
+        else:
+            move_logs = self.User_move_logs
+        
+        while len(move_logs) > 0:
+            self.undo_move()
+        
+        return
     ################ CHECKING VICTORY ################
     def is_over(self):
 
@@ -451,13 +463,13 @@ class Board:
     
     def DFS(self, vertex, temporary_solution, level = 0):
 
-        # Increase num_v
-        self.num_v +=1 
-
         if level >= len(vertex):
             game_over, _ = self.is_over()
             return game_over
-
+        
+        # Increase num_v
+        self.num_v +=1 
+        # Get node of this level
         top = vertex[level]
 
         if not top.illuminated:

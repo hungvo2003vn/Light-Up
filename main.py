@@ -26,7 +26,7 @@ def main():
     found_solution = False
 
     # For title
-    content = ["Play Again", "Solution", "User Mode", "->", "Solve All", "<-", "Undo Move", "Submit"]
+    content = ["Play Again", "Solution", "User Mode", "->", "Solve All", "<-", "Undo Move", "Submit", "Clear"]
     width = SCREEN_WIDTH/6
     height = 50
     x = (X_BOARD + BOARD_LENGTH*CELL_SIZE + SCREEN_WIDTH)/2 - (width)/2
@@ -47,9 +47,11 @@ def main():
         MyGame.make_board_all(display_screen)
 
         # Create Submit button
-        _, message = MyGame_Button.Button_creation(content[-1])
+        _, message = MyGame_Button.Button_creation(content[7])
         # Create Play Again button
         MyGame = MyGame_Button.Button_creation(content[0])
+        # Create Clear button
+        MyGame_Button.Button_creation(content[8])
 
         if not MyGame.ai_turn:
 
@@ -106,7 +108,7 @@ def main():
         # Handle User click event
         # Check if pieces is clicked
         else:
-            MyGame_Button.Button_creation(content[-2]) # Undo Move Button
+            MyGame_Button.Button_creation(content[6]) # Undo Move Button
 
             pos = None
             type = None
