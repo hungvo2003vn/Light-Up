@@ -496,12 +496,11 @@ class Board:
     ###################### MAP GENERATOR ######################
     def map_creation(self):
 
-        # Example usage
-        MY_MAP = map_generator(BOARD_LENGTH, MAP_PIECES)
-        MY_MAP.generate_map()
-        MY_MAP.print_map()
+        My_map = map_generator()
+        grid = My_map.map_generation()
+        My_map.print_map()
         
-        return copy.deepcopy(MY_MAP.grid)
+        return grid
 
             
                 
