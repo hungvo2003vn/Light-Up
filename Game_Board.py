@@ -48,8 +48,13 @@ class Board:
         if self.PIECES_MAP is not None:
             return
         
-        #TEST = random.choice(LIST_TEST)
-        TEST = self.map_creation()
+        LIST_TESTS_10x10 = [TEST5, TEST6]
+        #LIST_TESTS_7x7 = [self.map_creation(), TEST1, TEST2, TEST3, TEST4]
+        #TEST = random.choice(LIST_TESTS_10x10)
+        LIST_TESTS_7x7 = [self.map_creation()]
+        TEST = random.choice(LIST_TESTS_7x7)
+
+
         self.PIECES_MAP = copy.deepcopy(TEST)
         self.AI_MAP = copy.deepcopy(TEST)
 
@@ -501,7 +506,16 @@ class Board:
         My_map.print_map()
         
         return grid
+    
+    def print_map(self):
 
+        for row in self.AI_MAP:
+            new_row = []
+            for cell in row:
+                new_row.append(cell.value)
+            print(' '.join(new_row))
+
+        return
             
                 
 

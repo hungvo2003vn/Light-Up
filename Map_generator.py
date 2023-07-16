@@ -1,13 +1,14 @@
 import random
 import copy
 from Cell_Board import Cell
-from SETTING import *
+from SETTING import BOARD_LENGTH
 
 class map_generator():
 
     def __init__(self):
         
         self.grid = [['--' for _ in range(BOARD_LENGTH)] for _ in range(BOARD_LENGTH)]
+        self.grid_solution = copy.deepcopy(self.grid)
         self.PIECES_MAP = copy.deepcopy(self.grid)
         self.black_coordinates = []
         self.white_coordinates = []
@@ -24,13 +25,20 @@ class map_generator():
         if not self.inside_click(row, col):
             return False
 
-        piece = self.PIECES_MAP[row][col].value
+        piece = self.get_cell(row, col).value
 
         # This cell is black
         if piece[0] == 'b':
             return False
         
         return True
+    
+    def get_cell(self, row, col):
+        return self.PIECES_MAP[row][col]
+    
+    def set_value(self, row, col, value):
+        self.PIECES_MAP[row][col].value = value
+        return
     
     def possible_highlight(self, pos):
 
@@ -60,14 +68,14 @@ class map_generator():
     def make_move(self, Move):
 
         row, col = Move[0], Move[1]
-        cell = self.PIECES_MAP[row][col]
+        cell = self.get_cell(row, col)
         possible_hl = self.possible_highlight(Move)
 
         for pos in possible_hl:
-            piece = self.PIECES_MAP[pos[0]][pos[1]]
-            if piece.value[0] != 'f':
+            piece = self.get_cell(pos[0], pos[1])
+            if not piece.illuminated:
                 piece.set_illuminated(cell)
-        
+
         return
 
     def init_random_black(self):
@@ -93,7 +101,7 @@ class map_generator():
         for y in range(BOARD_LENGTH):
             for x in range(BOARD_LENGTH):
 
-                user_cell = self.PIECES_MAP[y][x]
+                cell = self.get_cell(y, x)
 
                 up = [y - 1, x]
                 down = [y + 1, x]
@@ -105,8 +113,8 @@ class map_generator():
                     row, col = pos[0], pos[1]
 
                     if self.inside_click(row, col):
-                        user_neighbor = self.PIECES_MAP[row][col]
-                        user_cell.add_neighbor(user_neighbor)
+                        neighbor = self.get_cell(row, col)
+                        cell.add_neighbor(neighbor)
         return
     
     def init_random_light(self):
@@ -114,11 +122,11 @@ class map_generator():
         # Set light a round each black cell
         for pos in self.black_coordinates:
             y, x = pos[0], pos[1]
-            black_cells = self.PIECES_MAP[y][x]
+            black_cells = self.get_cell(y, x)
 
             for neigh in black_cells.neighbors:
 
-                if neigh.value == "b-" or neigh.value[0] == 'f':
+                if neigh.value == "b-" or neigh.illuminated:
                     continue
                 
                 # Set light with a ratio
@@ -128,14 +136,14 @@ class map_generator():
         # Set light for white cell that is a non-illuminated cell
         for pos in self.white_coordinates:
 
-            cell = self.PIECES_MAP[pos[0]][pos[1]]
+            cell = self.get_cell(pos[0], pos[1])
 
-            if cell.value == "b-" or neigh.value[0] == 'f':
-                continue
-            
             # Set light with a ratio
-            if random.random() < self.LIGHT_RATIO:
+            if not cell.illuminated:
                 self.make_move(cell.pos)
+            
+            # This action to know the solution of the map
+            self.grid_solution[pos[0]][pos[1]] = cell.value
         
         return
     
@@ -143,7 +151,7 @@ class map_generator():
 
         for pos in self.black_coordinates:
             
-            cell = self.PIECES_MAP[pos[0]][pos[1]]
+            cell = self.get_cell(pos[0], pos[1])
             _, count_lights = cell.num_neighbor_lights()
 
             if count_lights == 0:
@@ -151,10 +159,12 @@ class map_generator():
                 if random.random() < self.BLACK_ZERO_RATIO:
                     cell.value = "b0"
             else:
-                cell.value = 'b' + str(count_lights)
+                if random.random() > self.BLACK_ZERO_RATIO:
+                    cell.value = 'b' + str(count_lights)
 
             # Set grid value
             self.grid[pos[0]][pos[1]] = cell.value
+            self.grid_solution[pos[0]][pos[1]] = cell.value
 
         return
 
@@ -166,11 +176,18 @@ class map_generator():
         self.set_tag_for_black()
 
         return copy.deepcopy(self.grid)
-    
+
     def print_map(self):
 
+        # Generated map
         for row in self.grid:
             print(' '.join(row))
+
+        print("##### SOLVED MAP BY GENERATOR #####")
+
+        #Solved map
+        for row in self.grid_solution:
+            print(' '.join(row)) 
         
         return
 

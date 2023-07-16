@@ -15,9 +15,13 @@ GREEN_YELLOW = (173,255,47)
 LEFT = 1
 RIGHT = 3
 
-#Size of cell and board
+#Size of cell and board for 7x7
 CELL_SIZE = 80
 BOARD_LENGTH = 7
+
+# #Size of cell and board for 10x10
+# CELL_SIZE = 50
+# BOARD_LENGTH = 10
 
 #Board position
 X_BOARD = (SCREEN_WIDTH - CELL_SIZE * BOARD_LENGTH)/2

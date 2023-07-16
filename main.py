@@ -65,10 +65,14 @@ def main():
                     MyGame_Button.Button_Title("AI solving...")
                     pg.display.update()
                     
+                    print("##### SOLVED MAP BY GENERATOR #####")
                     print("Num of vertex in Tree: ", len(MyGame.White_cells))
 
                     # Solving
+                    start_time = time.time()
                     found_solution = MyGame.AI_solver()
+                    end_time = time.time() - start_time
+
                     time.sleep(2)
 
                     solution_content = "Solution found!"
@@ -78,6 +82,10 @@ def main():
                     else:
 
                         print("Number of visited vertex: ", MyGame.num_v)
+
+                    print("Finished time: ",end_time)
+                    
+                    # Set num_v = 0 for other game play
                     MyGame.num_v = 0
 
                     # Update UI immediately
