@@ -26,7 +26,7 @@ def main():
     found_solution = False
 
     # For title
-    content = ["Play Again", "Solution", "User Mode", "->", "Solve All", "<-", "Undo Move", "Submit", "Clear"]
+    content = ["Play Again", "Solution", "User Mode", "->", "Solve All", "<-", "Undo Move", "Submit", "Clear", "DFS", "Heu"]
     width = SCREEN_WIDTH/6
     height = 50
     x = (X_BOARD + BOARD_LENGTH*CELL_SIZE + SCREEN_WIDTH)/2 - (width)/2
@@ -46,51 +46,106 @@ def main():
         MyGame.make_board_all(display_screen)
 
         _, message = MyGame_Button.Button_creation(content[7]) # Create Submit button
-        MyGame = MyGame_Button.Button_creation(content[0]) # Create Play Again button
+        MyGame_Button.Button_creation(content[0]) # Create Play Again button
         MyGame_Button.Button_creation(content[8]) # Create Clear button
 
         if not MyGame.ai_turn:
 
             # Create Solution Button
-            MyGame.ai_turn = MyGame_Button.Button_creation(content[1])
+            # MyGame.ai_turn = MyGame_Button.Button_creation(content[1])
+            MyGame.DFS_turn = MyGame_Button.Button_creation(content[9]) # Create Solution Button (DFS)
+            MyGame.Heu_turn = MyGame_Button.Button_creation(content[10]) # Create Solution Button (Heu)
+            MyGame.ai_turn = MyGame.DFS_turn or MyGame.Heu_turn
 
             if MyGame.ai_turn:
-                if not MyGame.solved:
+                
+                if MyGame.DFS_turn:
 
-                    # Update UI immediately
-                    MyGame_Button.Button_Title("AI solving...")
-                    pg.display.update()
+                    if not MyGame.DFS_solved:
+                        # Update UI immediately
+                        MyGame_Button.Button_Title("AI solving...")
+                        pg.display.update()
 
-                    #Solving
-                    #MyGame.found_solution = MyGame.DFS_solver()
-                    MyGame.found_solution, set_lights = MyGame.Heuristic_Solver()
-                    MyGame.Solutions = deepcopy(set_lights)
-                    MyGame.solved = True
-                    time.sleep(0.5)
+                        #Solving
+                        found_solution = MyGame.DFS_solver()
+                        time.sleep(0.5)
 
-                    solution_content = "Solution found!"
-                    if not MyGame.found_solution:
-                        solution_content = "No solution!"
+                        solution_content = "Solution DFS found!"
+                        if not MyGame.DFS_found_solution:
+                            solution_content = "No DFS solution!"
 
-                    # Update UI immediately
-                    MyGame_Button.y += 60
-                    MyGame_Button.Button_Title(solution_content)
-                    MyGame_Button.y -= 60
-                    pg.display.update()
-                    time.sleep(2)
+                        # Update UI immediately
+                        MyGame_Button.y += 60
+                        MyGame_Button.Button_Title(solution_content)
+                        MyGame_Button.y -= 60
+                        pg.display.update()
+                        time.sleep(2)
 
-                elif not MyGame.found_solution:
+                    else:
+                        found_solution = MyGame.DFS_found_solution
+                        if not found_solution:
+                            # Update UI immediately
+                            MyGame_Button.Button_Title("No DFS solution!")
+                            pg.display.update()
+                            time.sleep(2)
+
+                        else:
+                            MyGame.Solutions = []
+                            while len(MyGame.AI_move_logs) > 0:
+                                MyGame.undo_move()
+                            # Loading DFS Solution to globel solution
+                            MyGame.Solutions += MyGame.DFS_Solutions
+                else:
+
+                    if not MyGame.Heu_solved:
+                        # Update UI immediately
+                        MyGame_Button.Button_Title("AI solving...")
+                        pg.display.update()
+
+                        #Solving
+                        found_solution = MyGame.Heuristic_Solver()
+                        time.sleep(0.5)
+
+                        solution_content = "Solution Heuristic found!"
+                        if not MyGame.DFS_found_solution:
+                            solution_content = "No Heuristic solution!"
+
+                        # Update UI immediately
+                        MyGame_Button.y += 60
+                        MyGame_Button.Button_Title(solution_content)
+                        MyGame_Button.y -= 60
+                        pg.display.update()
+                        time.sleep(2)
+
+                    else:
+                        found_solution = MyGame.Heu_found_solution
+                        if not found_solution:
+                            # Update UI immediately
+                            MyGame_Button.Button_Title("No Heuristic solution!")
+                            pg.display.update()
+                            time.sleep(2)
+
+                        else:
+                            MyGame.Solutions = []
+                            while len(MyGame.AI_move_logs) > 0:
+                                MyGame.undo_move()
+                            # Loading Heu Solution to globel solution
+                            MyGame.Solutions += MyGame.Heu_Solutions
                     
-                    # Update UI immediately
-                    MyGame_Button.Button_Title("No solution")
-                    pg.display.update()
-                    time.sleep(2)
-
-                MyGame.ai_turn = MyGame.found_solution
+                MyGame.ai_turn = found_solution
                 continue
 
         # AI mode
         if MyGame.ai_turn:
+            
+            solution_content = "DFS Mode"
+            if not MyGame.DFS_turn:
+                solution_content = "Heuristic Mode"
+
+            # Update UI
+            MyGame_Button.y += 60
+            MyGame_Button.Button_Title(solution_content)
+            MyGame_Button.y -= 60
 
             MyGame_Button.Button_creation(content[5]) # Undo Button
             MyGame_Button.Button_creation(content[3]) # Next Button

@@ -283,6 +283,7 @@ def simulated_annealing(problem, numberiterator):
             print(current.board[i])
         print(f'### {current.score}******T={T}******i={t} ###')
     return path
+
 class problem:
     def __init__(self, start , Cc, Pp, numIter ):
         self.start = start

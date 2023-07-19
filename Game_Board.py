@@ -28,17 +28,32 @@ class Board:
         self.AI_move_logs = []
 
         # For AI's solver
-        self.Black_cells = []
-        self.White_cells = []
-        self.Solutions = []
         self.Solutions_Xcross = []
         self.solved = False
         self.found_solution = False
+        self.Solutions = []
 
+        # For DFS
+        self.Black_cells = []
+        self.White_cells = []
         self.num_v = 0
         self.branch = 0
         self.all_path_traversed = ''
+
+        self.DFS_solved = False
+        self.DFS_found_solution = False
+        self.DFS_Solutions = []
+        self.DFS_turn = False
+
+        # For Heuristic
+        self.Heu_solved = False
+        self.Heu_found_solution = False
+        self.Heu_Solutions = []
+        self.Heu_turn = False
     
+    def reset(self):
+        self.__init__(self.Font)
+
     def make_board(self, display_screen):
 
         # Draw board
@@ -56,8 +71,8 @@ class Board:
         
         # LIST_TESTS_10x10 = [TEST5, TEST6]
         # LIST_TESTS_7x7 = [self.map_creation(), TEST1, TEST2, TEST3, TEST4]
-        LIST_TESTS_7x7 = [self.map_creation()]
-        TEST = random.choice(LIST_TESTS_7x7)
+        LIST_TESTS_7x7 = [TEST2]
+        TEST = LIST_TESTS_7x7[0]
 
 
         self.PIECES_MAP = copy.deepcopy(TEST)
@@ -431,7 +446,7 @@ class Board:
                         # Make move
                         self.make_move(neighbor.pos, LEFT)
                         # Add to solution
-                        self.Solutions.append(neighbor.pos)
+                        self.DFS_Solutions.append(neighbor.pos)
 
                         possible_hl = self.possible_highlight(neighbor.pos)
                         for pos in possible_hl:
@@ -463,11 +478,21 @@ class Board:
         for cell in self.White_cells:
             vertex.append(cell)
 
+        # Start searching
         found_solution = self.DFS(vertex, temporary_solution)
-        self.found_solution = found_solution
-        self.Solutions += temporary_solution
-        self.solved = True
+        self.found_solution = found_solution # Global found
+        self.DFS_found_solution = found_solution
 
+        # Append solution
+        self.DFS_Solutions += temporary_solution
+        self.Solutions = []
+        self.Solutions += self.DFS_Solutions # Global solution
+
+        # Mark as solved
+        self.solved = True # Global solved
+        self.DFS_solved = True
+
+        # Undo some moves to clear the board
         while len(self.AI_move_logs) > 0:
             self.undo_move()
 
@@ -539,6 +564,7 @@ class Board:
         numberiterator = 100000
         
         state = self.convert_testing_map()
+        old_state = deepcopy(state)
         boardFirst = HBoard(state)
         
         s = problem(boardFirst, Cc,Pp,numberiterator)
@@ -547,8 +573,6 @@ class Board:
         startTime = time.time()
         solution = simulated_annealing(s, numberiterator)
         endTime = time.time() - startTime
-
-        path = solution[-1].numberBulb
 
         ################## WRITE TO FILE ##################
         file_out = open("./output/heuristic.txt", "w")
@@ -566,6 +590,8 @@ class Board:
         file_out.write('Solution: ')
 
         path_string = ''
+        path = solution[-1].numberBulb
+
         new_path = []
         for step in path:
             new_path.append([step[0], step[1]])
@@ -581,12 +607,28 @@ class Board:
         print('time elapsed', endTime)
         print('Solution:\n', path)
 
+        ############## Update some attributes #############
+        self.Heu_found_solution = solution[-1].checkEnd()
+        self.Heu_solved = True
+        self.Heu_Solutions += new_path
+
+        self.Solutions = []
+        self.Solutions += self.Heu_Solutions
+        self.found_solution = self.Heu_found_solution
+        self.solved = self.Heu_solved
+
+        ###################################################
         while len(self.AI_move_logs) > 0:
             self.undo_move()
 
-        print(solution[-1].checkEnd())
-        return solution[-1].checkEnd(), new_path
-        #return new_path
+        ########## DEBUGGING ##########
+        for row in old_state:
+            print(row)
+        print('\n')
+        for row in state:
+            print(row)
+        
+        return self.Heu_found_solution
     
     def DFS(self, vertex, temporary_solution, level = 0):
 
@@ -661,6 +703,11 @@ class Board:
                 cell = translate_map[row][col]
                 translate_map[row][col] = TRANSLATE[cell]
 
+        print("Convertmap: ")
+        for row in translate_map:
+            print(row)
+        
+        time.sleep(2)
 
         return translate_map
 

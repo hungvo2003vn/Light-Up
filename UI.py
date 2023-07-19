@@ -39,19 +39,19 @@ class Game_Button:
         self.MyGame = MyGame
         self.font = font
 
-        # "content": ["Play Again", "Solution", "User Mode", "->", "Solve All", "<-", "Undo Move", "Submit", "Clear"]
+        # "content": ["Play Again", "Solution", "User Mode", "->", "Solve All", "<-", "Undo Move", "Submit", "Clear", "DFS", "Heu"]
 
         self.button_list = {
             "Play Again": 0, "Solution": 1, "User Mode": 2,
             "->": 3, "Solve All": 4, "<-": 5, "Undo Move": 6, 
-            "Submit": 7, "Clear": 8
+            "Submit": 7, "Clear": 8, "DFS": 9, "Heu": 10
         }
 
         self.button_adjustment = {
-            "width_scale": [1, 1, 1, 2, 1, 2, 1, 1, 1],
-            "height_scale": [1, 1, 1, 1, 1, 1, 1, 1, 1],
-            "x_offset": [0, 0, 0, self.width + 10, 0, -self.width//2 - 10, 0, 0, 0],
-            "y_offset": [180, 0, -60, 0, 0, 0, -60, 120, 60]
+            "width_scale": [1, 1, 1, 2, 1, 2, 1, 1, 1, 2.1, 2.1],
+            "height_scale": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            "x_offset": [0, 0, 0, self.width + 10, 0, -self.width//2 - 10, 0, 0, 0, 0, self.width - 0.48*self.width],
+            "y_offset": [180, 0, -60, 0, 0, 0, -60, 120, 60, 0, 0]
         }
 
     def Init_Button(self, content):
@@ -77,7 +77,7 @@ class Game_Button:
                 time.sleep(0.2)
 
                 if content == "Play Again":
-                    self.MyGame = Board(self.MyGame.Font)
+                    self.MyGame.reset()
                     return self.MyGame
                 elif content == "User Mode":
                     self.MyGame.ai_turn = False
