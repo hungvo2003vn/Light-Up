@@ -1,0 +1,22 @@
+############# Path branch: 1 #############
+[fr, f-, f-, b1, b1, fr, f-]
+[f-, f-, b2, fr, f-, f-, f-]
+[b1, f-, fr, f-, b-, f-, fr]
+[fr, f-, f-, f-, f-, f-, f-]
+[b2, fr, f-, b2, fr, f-, f-]
+[b-, b2, f-, fr, f-, f-, f-]
+[fr, f-, f-, f-, f-, f-, f-]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 2 #############
+[fr, f-, f-, b1, b1, fr, f-]
+[f-, f-, b2, fr, f-, f-, f-]
+[b1, f-, fr, f-, b-, f-, fr]
+[fr, f-, f-, f-, f-, f-, f-]
+[b2, fr, f-, b2, fr, f-, f-]
+[b-, b2, f-, fr, f-, f-, f-]
+[f-, fr, f-, f-, f-, f-, f-]
+---------Game Over: True, Message: Valid Solution---------
+---------Time elapsed: 0.001954317092895508---------
+Set Lights: [(3, 0), (4, 1), (0, 0), (0, 5), (1, 3), (2, 2), (2, 6), (4, 4), (5, 3), (6, 1)]
+Number of vertexes in Tree: 28
+Number of visited vertexes: 34

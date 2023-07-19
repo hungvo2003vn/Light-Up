@@ -4,7 +4,7 @@ from pygame.locals import *
 from SETTING import *
 from UI import *
 from Game_Board import *
-import asyncio
+import threading
 
 # Init pygame
 pg.init()
@@ -43,15 +43,11 @@ def main():
                 sys.exit()
 
         display_screen.fill(BLACK)
-
         MyGame.make_board_all(display_screen)
 
-        # Create Submit button
-        _, message = MyGame_Button.Button_creation(content[7])
-        # Create Play Again button
-        MyGame = MyGame_Button.Button_creation(content[0])
-        # Create Clear button
-        MyGame_Button.Button_creation(content[8])
+        _, message = MyGame_Button.Button_creation(content[7]) # Create Submit button
+        MyGame = MyGame_Button.Button_creation(content[0]) # Create Play Again button
+        MyGame_Button.Button_creation(content[8]) # Create Clear button
 
         if not MyGame.ai_turn:
 
@@ -64,29 +60,17 @@ def main():
                     # Update UI immediately
                     MyGame_Button.Button_Title("AI solving...")
                     pg.display.update()
-                    
-                    print("##### SOLVED MAP BY GENERATOR #####")
-                    print("Num of vertex in Tree: ", len(MyGame.White_cells))
 
-                    # Solving
-                    start_time = time.time()
-                    found_solution = MyGame.AI_solver()
-                    end_time = time.time() - start_time
-
-                    time.sleep(2)
+                    #Solving
+                    #MyGame.found_solution = MyGame.DFS_solver()
+                    MyGame.found_solution, set_lights = MyGame.Heuristic_Solver()
+                    MyGame.Solutions = deepcopy(set_lights)
+                    MyGame.solved = True
+                    time.sleep(0.5)
 
                     solution_content = "Solution found!"
-                    if MyGame.num_v == 0:
+                    if not MyGame.found_solution:
                         solution_content = "No solution!"
-                        print("Number of visited vertex: ", MyGame.num_v, "- Init map got overlapped!")
-                    else:
-
-                        print("Number of visited vertex: ", MyGame.num_v)
-
-                    print("Finished time: ",end_time)
-                    
-                    # Set num_v = 0 for other game play
-                    MyGame.num_v = 0
 
                     # Update UI immediately
                     MyGame_Button.y += 60
@@ -95,14 +79,14 @@ def main():
                     pg.display.update()
                     time.sleep(2)
 
-                elif not found_solution:
+                elif not MyGame.found_solution:
                     
                     # Update UI immediately
                     MyGame_Button.Button_Title("No solution")
                     pg.display.update()
                     time.sleep(2)
 
-                MyGame.ai_turn = found_solution
+                MyGame.ai_turn = MyGame.found_solution
                 continue
 
         # AI mode
@@ -139,6 +123,7 @@ def main():
         
         if message != "":
             time.sleep(2)
+
 
 if __name__ == '__main__':
     main()

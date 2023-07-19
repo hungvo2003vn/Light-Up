@@ -1,4 +1,4 @@
-from SETTING import WHITE, LEFT, BLACK
+from SETTING import WHITE, LEFT, BLACK, RIGHT
 import pygame as pg
 from pygame.locals import *
 import time
@@ -85,8 +85,13 @@ class Game_Button:
                 elif content == "->":
 
                     index = len(self.MyGame.AI_move_logs)
-                    if index < len(self.MyGame.Solutions):
-                        self.MyGame.make_move(self.MyGame.Solutions[index], LEFT)
+                    Solutions = self.MyGame.Solutions_Xcross + self.MyGame.Solutions
+                    if index < len(Solutions):
+                        Move = Solutions[index]
+                        if Move in self.MyGame.Solutions_Xcross:
+                            self.MyGame.make_move(Move, RIGHT)
+                        else:
+                            self.MyGame.make_move(Move, LEFT)
 
                 elif content == "Solve All":
 
@@ -97,11 +102,17 @@ class Game_Button:
                             self.MyGame.undo_move()
 
                         # Making moves
-                        for Move in self.MyGame.Solutions:
-                            self.MyGame.make_move(Move, LEFT)
+                        Solutions = self.MyGame.Solutions_Xcross + self.MyGame.Solutions
+                        for Move in Solutions:
+                            if Move in self.MyGame.Solutions_Xcross:
+                                self.MyGame.make_move(Move, RIGHT)
+                            else:
+                                self.MyGame.make_move(Move, LEFT)
 
-                    print('####################################################')
-                    print(self.MyGame.Solutions)
+                    print('###################### SOLUTION ######################')
+                    if len(self.MyGame.Solutions_Xcross) > 0:
+                        print('Set Cross: ', self.MyGame.Solutions_Xcross)
+                    print('Set Lights: ',self.MyGame.Solutions)
 
                 elif content == "<-" or content == "Undo Move":
 

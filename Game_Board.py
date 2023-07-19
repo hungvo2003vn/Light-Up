@@ -6,6 +6,7 @@ import copy
 from TEST_CASE import *
 from Cell_Board import *
 from Map_generator import *
+from Heuristic_Board import *
 
 #################### CLASS BOARD ####################
 
@@ -16,6 +17,7 @@ class Board:
         self.BOARD = None
         self.PIECES_MAP = None
         self.AI_MAP = None
+        self.TESTING_MAP = None
 
         self.user = None
         self.ai_turn = False
@@ -29,9 +31,13 @@ class Board:
         self.Black_cells = []
         self.White_cells = []
         self.Solutions = []
+        self.Solutions_Xcross = []
         self.solved = False
+        self.found_solution = False
 
         self.num_v = 0
+        self.branch = 0
+        self.all_path_traversed = ''
     
     def make_board(self, display_screen):
 
@@ -48,15 +54,15 @@ class Board:
         if self.PIECES_MAP is not None:
             return
         
-        LIST_TESTS_10x10 = [TEST5, TEST6]
-        #LIST_TESTS_7x7 = [self.map_creation(), TEST1, TEST2, TEST3, TEST4]
-        #TEST = random.choice(LIST_TESTS_10x10)
+        # LIST_TESTS_10x10 = [TEST5, TEST6]
+        # LIST_TESTS_7x7 = [self.map_creation(), TEST1, TEST2, TEST3, TEST4]
         LIST_TESTS_7x7 = [self.map_creation()]
         TEST = random.choice(LIST_TESTS_7x7)
 
 
         self.PIECES_MAP = copy.deepcopy(TEST)
         self.AI_MAP = copy.deepcopy(TEST)
+        self.TESTING_MAP = copy.deepcopy(TEST)
 
         # Creating Cell object for each coordinate
         for y in range(BOARD_LENGTH):
@@ -403,12 +409,12 @@ class Board:
 
                 for neighbor in cell.neighbors:
                     
-                    # # Marked as X
-                    # if neighbor.value == '--' or neighbor.value == 'f-':
-                    #     # Make move
-                    #     self.make_move(neighbor.pos, RIGHT)
-                    #     # Add to solution
-                    #     #self.Solutions.append(neighbor.pos)
+                    # Marked as X
+                    if neighbor.value == '--' or neighbor.value == 'f-':
+                        # # Make move
+                        # self.make_move(neighbor.pos, RIGHT)
+                        # Add to Xcross solution
+                        self.Solutions_Xcross.append(neighbor.pos)
 
                     # Remove 
                     try:
@@ -458,6 +464,7 @@ class Board:
             vertex.append(cell)
 
         found_solution = self.DFS(vertex, temporary_solution)
+        self.found_solution = found_solution
         self.Solutions += temporary_solution
         self.solved = True
 
@@ -466,10 +473,136 @@ class Board:
 
         return found_solution
     
+    def DFS_solver(self):
+
+        start_time = time.time()
+        found_solution = self.AI_solver()
+        end_time = time.time() - start_time
+
+
+        file_out = open("./output/DFS.txt", "w+")
+
+        finished_string = ''
+        finished_string += f'---------Time elapsed: {end_time}---------\n'
+
+        if found_solution:
+
+            all_path_string = ''
+
+            # Append Xcross Solutions
+            cros_path = self.Solutions_Xcross
+            if len(cros_path) > 0:
+
+                all_path_string += 'Set Cross: '
+                path_string = ''
+                for step in cros_path:
+                    step_str = ', '.join(str(coord) for coord in step)
+                    step_str = f'({step_str})'
+                    path_string += step_str + ', '
+                
+                path_string = path_string[:-2]
+                path_string = f'[{path_string}]\n'
+
+                all_path_string += path_string
+
+            # Append Solutions
+            lights_path = self.Solutions
+            all_path_string += 'Set Lights: '
+            path_string = ''
+            for step in lights_path:
+                step_str = ', '.join(str(coord) for coord in step)
+                step_str = f'({step_str})'
+                path_string += step_str + ', '
+            
+            path_string = path_string[:-2]
+            path_string = f'[{path_string}]'
+            all_path_string += path_string
+
+            # Append all
+            finished_string += all_path_string
+
+        else:
+            finished_string += 'No Solution!'
+
+        finished_string += f'\nNumber of vertexes in Tree: {len(self.White_cells)}\n'
+        finished_string += f"Number of visited vertexes: {self.num_v}"
+        print(finished_string)
+        file_out.write(self.all_path_traversed + finished_string)
+        file_out.close()
+
+        return found_solution
+    
+    def Heuristic_Solver(self):
+    
+        Cc = 7
+        Pp = 0.37
+        numberiterator = 100000
+        
+        state = self.convert_testing_map()
+        boardFirst = HBoard(state)
+        
+        s = problem(boardFirst, Cc,Pp,numberiterator)
+        s.prepareToSearch(boardFirst)
+        
+        startTime = time.time()
+        solution = simulated_annealing(s, numberiterator)
+        endTime = time.time() - startTime
+
+        path = solution[-1].numberBulb
+
+        ################## WRITE TO FILE ##################
+        file_out = open("./output/heuristic.txt", "w")
+
+        for j in range(len(solution)):
+            for i in range(DIMENTION):
+
+                board_row_str = ', '.join(str(cell) for cell in solution[j].board[i])
+                board_row_str = f'[{board_row_str}]\n'
+                file_out.write(board_row_str)
+
+            file_out.write(f'-------{solution[j].score}--------\n')
+
+        file_out.write(f'time elapsed: {endTime}\n')
+        file_out.write('Solution: ')
+
+        path_string = ''
+        new_path = []
+        for step in path:
+            new_path.append([step[0], step[1]])
+            step_str = ', '.join(str(coord) for coord in step)
+            step_str = f'({step_str})'
+            path_string += step_str + ', '
+        
+        path_string = path_string[:-2]
+        file_out.write(f'[{path_string}]')
+        file_out.close()
+        ###################################################
+
+        print('time elapsed', endTime)
+        print('Solution:\n', path)
+
+        while len(self.AI_move_logs) > 0:
+            self.undo_move()
+
+        print(solution[-1].checkEnd())
+        return solution[-1].checkEnd(), new_path
+        #return new_path
+    
     def DFS(self, vertex, temporary_solution, level = 0):
 
         if level >= len(vertex):
-            game_over, _ = self.is_over()
+            game_over, mess = self.is_over()
+            self.branch += 1
+
+            ######### WRITE SOLUTION#########
+            currnet_map = self.print_map()
+            solving_string = f'############# Path branch: {self.branch} #############\n'
+            solving_string += currnet_map
+            solving_string += f'---------Game Over: {game_over}, Message: {mess}---------'
+            ##########################################
+            print(solving_string)
+            self.all_path_traversed += solving_string + '\n'
+
             return game_over
         
         # Increase num_v
@@ -509,16 +642,35 @@ class Board:
     
     def print_map(self):
 
+        curent_map = ''
         for row in self.AI_MAP:
             new_row = []
             for cell in row:
                 new_row.append(cell.value)
-            print(' '.join(new_row))
+            curent_map += '[' + ', '.join(new_row) + ']\n'
+            #print('[' + ', '.join(new_row) + ']')
 
-        return
-            
-                
+        return curent_map
+    
+    def convert_testing_map(self):
 
+        translate_map = copy.deepcopy(self.TESTING_MAP)
+
+        for row in range(BOARD_LENGTH):
+            for col in range(BOARD_LENGTH):
+                cell = translate_map[row][col]
+                translate_map[row][col] = TRANSLATE[cell]
+
+
+        return translate_map
+
+
+# Init map
+# game = Board([])
+# game.make_map()
+# game.ai_turn = True
+# print(game.Heuristic_Solver())
+# game.DFS_solver()
 
 
 
