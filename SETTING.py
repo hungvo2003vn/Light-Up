@@ -23,6 +23,10 @@ BOARD_LENGTH = 7
 # CELL_SIZE = 50
 # BOARD_LENGTH = 10
 
+# #Size of cell and board for 6x6
+# CELL_SIZE = 80
+# BOARD_LENGTH = 6
+
 #Board position
 X_BOARD = (SCREEN_WIDTH - CELL_SIZE * BOARD_LENGTH)/2
 X_BOARD = 10

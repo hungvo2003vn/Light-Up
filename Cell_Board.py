@@ -64,7 +64,8 @@ class Cell:
         count_white = 0
         for neighbor in self.neighbors:
             #if neighbor.value == "--" or neighbor.value == 'f-' or neighbor.is_bulb:
-            if neighbor.value == "--" or neighbor.illuminated:
+            #if neighbor.value == "--" or neighbor.illuminated:
+            if neighbor.value == "--" or neighbor.is_bulb:
                 count_white += 1
 
         return need == count_white

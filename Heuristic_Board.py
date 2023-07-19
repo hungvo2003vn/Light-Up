@@ -5,7 +5,7 @@ import random
 import time
 class HBoard:
     def __init__(self, board, numberreadyToBulb = [], numberOfNumberCell = [],numberBulb =[]):
-        self.board = board
+        self.board = deepcopy(board)
         self.numberreadyToBulb = numberreadyToBulb      
         self.numberOfNumberCell = numberOfNumberCell 
         self.numberBulb = numberBulb                
@@ -15,6 +15,10 @@ class HBoard:
         self.numberLighted = 0
         self.score = -1000               
         self.isSolution = self.checkEnd()
+    
+    def reset(self):
+        self.__init__(self.board)
+
     # count number of cell in board that can put bulb in  this 
     # return a list of bulb's location
     def readyToBulb(self):
@@ -285,13 +289,16 @@ def simulated_annealing(problem, numberiterator):
     return path
 
 class problem:
-    def __init__(self, start , Cc, Pp, numIter ):
+    def __init__(self, start , Cc, Pp, numIter):
         self.start = start
-        self.goal = start
+        self.goal = deepcopy(start)
         self.Cc = Cc
         self.Pp = Pp
         self.numIter= numIter
-        
+    
+    def reset(self):
+        self.__init__([], 1, 1, 1)
+
     def schedule(self, t):
         # return self.Cc/(t + 1)**self.Pp
         # return 100/np.log(t + 1)

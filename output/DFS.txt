@@ -1,95 +1,13 @@
 ############# Path branch: 1 #############
-[f-, f-, fr, f-, f-, b1, fr]
-[b0, f-, f-, fr, f-, f-, f-]
-[f-, f-, b-, f-, b3, fr, f-]
-[f-, f-, f-, f-, fr, f-, f-]
-[f-, f-, b0, f-, b2, f-, f-]
-[f-, fr, f-, f-, f-, f-, b-]
-[fr, b3, fr, f-, f-, f-, f-]
----------Game Over: False, Message: Wrong num of neighbors!---------
-############# Path branch: 2 #############
-[f-, f-, fr, f-, f-, b1, fr]
-[b0, f-, f-, fr, f-, f-, f-]
-[f-, f-, b-, f-, b3, fr, f-]
-[f-, f-, --, f-, --, f-, f-]
-[f-, f-, b0, f-, b2, f-, f-]
-[f-, fr, f-, f-, f-, f-, b-]
-[fr, b3, fr, f-, f-, f-, f-]
----------Game Over: False, Message: Wrong num of neighbors!---------
-############# Path branch: 3 #############
-[f-, f-, fr, f-, f-, b1, fr]
-[b0, f-, f-, fr, f-, f-, f-]
-[f-, f-, b-, f-, b3, f-, f-]
-[f-, f-, f-, f-, fr, f-, f-]
-[f-, f-, b0, f-, b2, fr, f-]
-[f-, fr, f-, f-, f-, f-, b-]
-[fr, b3, fr, f-, f-, f-, f-]
----------Game Over: False, Message: Wrong num of neighbors!---------
-############# Path branch: 4 #############
-[f-, f-, fr, f-, f-, b1, fr]
-[b0, f-, f-, fr, f-, f-, f-]
-[f-, f-, b-, f-, b3, --, f-]
-[f-, f-, f-, f-, fr, f-, f-]
-[f-, f-, b0, f-, b2, --, f-]
-[f-, fr, f-, f-, f-, f-, b-]
-[fr, b3, fr, f-, f-, f-, f-]
----------Game Over: False, Message: Wrong num of neighbors!---------
-############# Path branch: 5 #############
-[f-, f-, fr, f-, f-, b1, fr]
-[b0, f-, f-, fr, f-, f-, f-]
-[f-, f-, b-, f-, b3, f-, f-]
-[f-, f-, f-, f-, f-, fr, f-]
-[f-, f-, b0, f-, b2, f-, f-]
-[f-, fr, f-, f-, f-, f-, b-]
-[fr, b3, fr, f-, f-, f-, f-]
----------Game Over: False, Message: Wrong num of neighbors!---------
-############# Path branch: 6 #############
-[f-, f-, fr, f-, f-, b1, fr]
-[b0, f-, f-, fr, f-, f-, f-]
-[f-, f-, b-, f-, b3, f-, f-]
-[f-, f-, --, f-, --, f-, f-]
-[f-, f-, b0, f-, b2, fr, f-]
-[f-, fr, f-, f-, f-, f-, b-]
-[fr, b3, fr, f-, f-, f-, f-]
----------Game Over: False, Message: Wrong num of neighbors!---------
-############# Path branch: 7 #############
-[f-, f-, fr, f-, f-, b1, fr]
-[b0, f-, f-, fr, f-, f-, f-]
-[f-, f-, b-, f-, b3, --, f-]
-[f-, f-, --, f-, --, --, f-]
-[f-, f-, b0, f-, b2, --, f-]
-[f-, fr, f-, f-, f-, f-, b-]
-[fr, b3, fr, f-, f-, f-, f-]
----------Game Over: False, Message: Wrong num of neighbors!---------
-############# Path branch: 8 #############
-[f-, f-, fr, f-, f-, b1, fr]
-[b0, f-, f-, f-, fr, f-, f-]
-[f-, f-, b-, fr, b3, fr, f-]
-[f-, f-, f-, f-, fr, f-, f-]
-[f-, f-, b0, f-, b2, f-, f-]
-[f-, fr, f-, f-, f-, f-, b-]
-[fr, b3, fr, f-, f-, f-, f-]
----------Game Over: False, Message: Wrong num of neighbors!---------
-############# Path branch: 9 #############
-[f-, f-, fr, f-, f-, b1, fr]
-[b0, f-, f-, f-, fr, f-, f-]
-[f-, f-, b-, fr, b3, fr, f-]
-[f-, f-, --, f-, --, f-, f-]
-[f-, f-, b0, f-, b2, f-, f-]
-[f-, fr, f-, f-, f-, f-, b-]
-[fr, b3, fr, f-, f-, f-, f-]
----------Game Over: False, Message: Wrong num of neighbors!---------
-############# Path branch: 10 #############
-[f-, f-, fr, f-, f-, b1, fr]
-[b0, f-, f-, f-, fr, f-, f-]
-[f-, f-, b-, fr, b3, f-, f-]
-[f-, f-, f-, f-, fr, f-, f-]
-[f-, f-, b0, f-, b2, fr, f-]
-[f-, fr, f-, f-, f-, f-, b-]
-[fr, b3, fr, f-, f-, f-, f-]
+[b1, fr, f-, b2, fr, b-, fr]
+[b-, f-, f-, fr, f-, b-, f-]
+[f-, f-, f-, f-, f-, f-, f-]
+[f-, f-, f-, f-, f-, f-, f-]
+[fr, b2, fr, b2, f-, f-, f-]
+[b2, f-, f-, fr, b2, fr, f-]
+[fr, f-, f-, f-, f-, f-, f-]
 ---------Game Over: True, Message: Valid Solution---------
----------Time elapsed: 0.008794307708740234---------
-Set Cross: [(0, 0), (2, 0), (1, 1), (3, 2), (5, 2), (4, 1), (4, 3)]
-Set Lights: [(5, 1), (6, 0), (6, 2), (0, 2), (0, 6), (1, 4), (2, 3), (3, 4), (4, 5)]
-Number of vertexes in Tree: 18
-Number of visited vertexes: 61
+---------Time elapsed: 0.0009794235229492188---------
+Set Lights: [(0, 1), (1, 3), (0, 4), (5, 3), (4, 2), (4, 0), (6, 0), (5, 5), (0, 6)]
+Number of vertexes in Tree: 5
+Number of visited vertexes: 5

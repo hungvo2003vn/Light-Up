@@ -46,13 +46,11 @@ def main():
         MyGame.make_board_all(display_screen)
 
         _, message = MyGame_Button.Button_creation(content[7]) # Create Submit button
-        MyGame_Button.Button_creation(content[0]) # Create Play Again button
+        #MyGame_Button.Button_creation(content[0]) # Create Play Again button
         MyGame_Button.Button_creation(content[8]) # Create Clear button
 
         if not MyGame.ai_turn:
 
-            # Create Solution Button
-            # MyGame.ai_turn = MyGame_Button.Button_creation(content[1])
             MyGame.DFS_turn = MyGame_Button.Button_creation(content[9]) # Create Solution Button (DFS)
             MyGame.Heu_turn = MyGame_Button.Button_creation(content[10]) # Create Solution Button (Heu)
             MyGame.ai_turn = MyGame.DFS_turn or MyGame.Heu_turn
@@ -71,7 +69,7 @@ def main():
                         time.sleep(0.5)
 
                         solution_content = "Solution DFS found!"
-                        if not MyGame.DFS_found_solution:
+                        if not found_solution:
                             solution_content = "No DFS solution!"
 
                         # Update UI immediately
@@ -107,7 +105,7 @@ def main():
                         time.sleep(0.5)
 
                         solution_content = "Solution Heuristic found!"
-                        if not MyGame.DFS_found_solution:
+                        if not found_solution:
                             solution_content = "No Heuristic solution!"
 
                         # Update UI immediately

@@ -71,7 +71,7 @@ class Board:
         
         # LIST_TESTS_10x10 = [TEST5, TEST6]
         # LIST_TESTS_7x7 = [self.map_creation(), TEST1, TEST2, TEST3, TEST4]
-        LIST_TESTS_7x7 = [TEST2]
+        LIST_TESTS_7x7 = [self.map_creation()]
         TEST = LIST_TESTS_7x7[0]
 
 
@@ -442,7 +442,8 @@ class Board:
 
                 for neighbor in cell.neighbors:
                     
-                    if neighbor.value[0] != 'b' and not neighbor.is_bulb:
+                    #if neighbor.value[0] != 'b' and not neighbor.is_bulb:
+                    if neighbor.value == '--':
                         # Make move
                         self.make_move(neighbor.pos, LEFT)
                         # Add to solution
@@ -620,13 +621,8 @@ class Board:
         ###################################################
         while len(self.AI_move_logs) > 0:
             self.undo_move()
-
-        ########## DEBUGGING ##########
-        for row in old_state:
-            print(row)
-        print('\n')
-        for row in state:
-            print(row)
+        
+        
         
         return self.Heu_found_solution
     
@@ -690,7 +686,6 @@ class Board:
             for cell in row:
                 new_row.append(cell.value)
             curent_map += '[' + ', '.join(new_row) + ']\n'
-            #print('[' + ', '.join(new_row) + ']')
 
         return curent_map
     
@@ -702,12 +697,6 @@ class Board:
             for col in range(BOARD_LENGTH):
                 cell = translate_map[row][col]
                 translate_map[row][col] = TRANSLATE[cell]
-
-        print("Convertmap: ")
-        for row in translate_map:
-            print(row)
-        
-        time.sleep(2)
 
         return translate_map
 
