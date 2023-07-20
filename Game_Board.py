@@ -3,8 +3,9 @@ import pygame as pg
 from pygame.locals import *
 import UI
 import copy
+import csv
+import time
 from TEST_CASE import *
-from Cell_Board import *
 from Map_generator import *
 from Heuristic_Board import *
 
@@ -12,18 +13,26 @@ from Heuristic_Board import *
 
 class Board:
 
-    def __init__(self, Font):
+    def __init__(self, Font, input_name, random_size):
 
+        # SIZE
+        self.BOARD_LENGTH = None
+        self.CELL_SIZE = None
+        self.X_BOARD = 10
+        self.Y_BOARD = None
+        self.input_name = input_name
+        self.random_size = random_size # IF input_name = '' the map will be randomly genarated by the generator follow the size
+        # MAP
         self.BOARD = None
         self.PIECES_MAP = None
         self.AI_MAP = None
         self.TESTING_MAP = None
-
+        # MODE
         self.user = None
         self.ai_turn = False
-
+        # Font
         self.Font = Font
-
+        # Move Logs
         self.User_move_logs = []
         self.AI_move_logs = []
 
@@ -52,15 +61,32 @@ class Board:
         self.Heu_turn = False
     
     def reset(self):
-        self.__init__(self.Font)
+        self.__init__(self.Font, self.input_name, self.random_size)
+
+    def adjust_constant(self, size):
+
+        self.BOARD_LENGTH = size
+        if size == 7:
+            self.CELL_SIZE = 80
+        elif size == 10:
+            self.CELL_SIZE = 50
+        elif size == 14:
+            self.CELL_SIZE = 40
+        self.Y_BOARD = (SCREEN_HEIGHT - self.CELL_SIZE * self.BOARD_LENGTH)/2
+
+        return
+    def get_output_name(self):
+        if self.input_name == 'random':
+            return f'-random_size{self.random_size}x{self.random_size}.txt'
+        return '-'+self.input_name+'.txt'
 
     def make_board(self, display_screen):
 
         # Draw board
-        self.BOARD = pg.surface.Surface((CELL_SIZE * BOARD_LENGTH, CELL_SIZE * BOARD_LENGTH))
+        self.BOARD = pg.surface.Surface((self.CELL_SIZE * self.BOARD_LENGTH, self.CELL_SIZE * self.BOARD_LENGTH))
         self.BOARD.fill(WHITE)
 
-        display_screen.blit(self.BOARD, (X_BOARD, Y_BOARD))
+        display_screen.blit(self.BOARD, (self.X_BOARD, self.Y_BOARD))
 
         return
 
@@ -70,24 +96,31 @@ class Board:
             return
         
         # LIST_TESTS_10x10 = [TEST5, TEST6]
-        # LIST_TESTS_7x7 = [self.map_creation(), TEST1, TEST2, TEST3, TEST4]
-        LIST_TESTS_7x7 = [self.map_creation()]
-        TEST = LIST_TESTS_7x7[0]
+        # LIST_TESTS_7x7 = [self.map_creation(size = 7), TEST1, TEST2, TEST3, TEST4]
+        # LIST_TESTS_7x7 = [self.map_creation(size = 7)]
+        # TEST = LIST_TESTS_7x7[0]
 
+        TEST = None
+        if self.input_name == 'random':
+            TEST = self.map_creation(size = self.random_size)
+        else:
+            TEST = self.read_input(input_name=self.input_name, decode=True)
+
+        self.adjust_constant(size = len(TEST))
 
         self.PIECES_MAP = copy.deepcopy(TEST)
         self.AI_MAP = copy.deepcopy(TEST)
         self.TESTING_MAP = copy.deepcopy(TEST)
 
         # Creating Cell object for each coordinate
-        for y in range(BOARD_LENGTH):
-            for x in range(BOARD_LENGTH):
+        for y in range(self.BOARD_LENGTH):
+            for x in range(self.BOARD_LENGTH):
                 self.PIECES_MAP[y][x] = Cell(y, x, TEST[y][x])
                 self.AI_MAP[y][x] = Cell(y, x, TEST[y][x])
 
         # Add neighbor
-        for y in range(BOARD_LENGTH):
-            for x in range(BOARD_LENGTH):
+        for y in range(self.BOARD_LENGTH):
+            for x in range(self.BOARD_LENGTH):
 
                 user_cell = self.PIECES_MAP[y][x]
                 ai_cell = self.AI_MAP[y][x]
@@ -121,7 +154,7 @@ class Board:
 
         for pieces in PIECES:
             PIECES_IMG[pieces] = pg.image.load("img/"+ pieces + ".png")
-            PIECES_IMG[pieces] =pg.transform.scale(PIECES_IMG[pieces], (CELL_SIZE*0.5, CELL_SIZE*0.5))
+            PIECES_IMG[pieces] =pg.transform.scale(PIECES_IMG[pieces], (self.CELL_SIZE*0.5, self.CELL_SIZE*0.5))
 
         return PIECES_IMG
     
@@ -130,23 +163,23 @@ class Board:
         # Load img of some pieces
         PIECES_IMG = self.load_pieces_img()
 
-        for y in range(0, BOARD_LENGTH):
-            for x in range(0,BOARD_LENGTH):
+        for y in range(0, self.BOARD_LENGTH):
+            for x in range(0, self.BOARD_LENGTH):
 
                 pieces = self.get_value(y, x).value
 
-                x_pos = x*CELL_SIZE + X_BOARD
-                y_pos = y*CELL_SIZE + Y_BOARD
+                x_pos = x*self.CELL_SIZE + self.X_BOARD
+                y_pos = y*self.CELL_SIZE + self.Y_BOARD
 
                 # This cell is lighting
                 if pieces[0] == 'f':
 
                     # Highligt background
-                    pg.draw.rect(display_screen, GREEN_YELLOW, (x_pos,  y_pos, CELL_SIZE, CELL_SIZE))
+                    pg.draw.rect(display_screen, GREEN_YELLOW, (x_pos,  y_pos, self.CELL_SIZE, self.CELL_SIZE))
 
                     # Load the light bulb if this cell has it
                     if pieces == "fr" or pieces == "fw":
-                        display_screen.blit(PIECES_IMG[pieces], (x_pos + CELL_SIZE//4, y_pos + CELL_SIZE//4, CELL_SIZE, CELL_SIZE))
+                        display_screen.blit(PIECES_IMG[pieces], (x_pos + self.CELL_SIZE//4, y_pos + self.CELL_SIZE//4, self.CELL_SIZE, self.CELL_SIZE))
                 
                 # This is a black cell
                 elif pieces[0] == 'b':
@@ -157,24 +190,24 @@ class Board:
                         content = ""
 
                     # Draw black cell
-                    UI.CreateButton(display_screen, x_pos, y_pos, CELL_SIZE, CELL_SIZE, content, self.Font[1], WHITE, BROWN)
+                    UI.CreateButton(display_screen, x_pos, y_pos, self.CELL_SIZE, self.CELL_SIZE, content, self.Font[1], WHITE, BROWN)
                 
                 # Highlight marked cell
                 if pieces[1] == 'x':
 
-                    UI.CreateTitle(display_screen, x_pos + CELL_SIZE//2, y_pos + CELL_SIZE//2, 'X', self.Font[1], RED)
+                    UI.CreateTitle(display_screen, x_pos + self.CELL_SIZE//2, y_pos + self.CELL_SIZE//2, 'X', self.Font[1], RED)
                     
 
                 
                 # Draw frame for each cell
-                pg.draw.rect(display_screen, LIGHT_BROWN, (x_pos,  y_pos, CELL_SIZE, CELL_SIZE), 1 )
+                pg.draw.rect(display_screen, LIGHT_BROWN, (x_pos,  y_pos, self.CELL_SIZE, self.CELL_SIZE), 1 )
                 
         return
     
     def make_board_all(self, display_screen):
 
-        self.make_board(display_screen)
         self.make_map()
+        self.make_board(display_screen)
         self.load_pieces_map(display_screen)
 
         return
@@ -220,7 +253,7 @@ class Board:
 
         possible_hl = [[row, col]]
 
-        for i in range(1, BOARD_LENGTH):
+        for i in range(1, self.BOARD_LENGTH):
 
             up = [row - i, col]
             down = [row + i, col]
@@ -240,7 +273,7 @@ class Board:
 
     
     def inside_click(self, x, y):
-        return (x in range(0, BOARD_LENGTH) and y in range(0, BOARD_LENGTH))
+        return (x in range(0, self.BOARD_LENGTH) and y in range(0, self.BOARD_LENGTH))
     
     def valid_click(self, row, col):
 
@@ -298,8 +331,8 @@ class Board:
 
     def checking_clicked(self, pos, type):
 
-        start_col = (int)((pos[0] - X_BOARD) // CELL_SIZE)
-        start_row = (int)((pos[1] - Y_BOARD) // CELL_SIZE)
+        start_col = (int)((pos[0] - self.X_BOARD) // self.CELL_SIZE)
+        start_row = (int)((pos[1] - self.Y_BOARD) // self.CELL_SIZE)
 
         if self.valid_click(start_row, start_col):
             self.make_move([start_row, start_col], type)
@@ -467,6 +500,14 @@ class Board:
     
     def AI_solver(self):
         
+        # Undo some moves to clear the board
+        while len(self.AI_move_logs) > 0:
+            self.undo_move()
+        
+        # Make some initial moves
+        for pos in self.DFS_Solutions:
+            self.make_move(pos, LEFT)
+
         game_over, message = self.is_over()
         if not game_over and message == "Overlap detected!":
             self.solved = True
@@ -505,8 +546,8 @@ class Board:
         found_solution = self.AI_solver()
         end_time = time.time() - start_time
 
-
-        file_out = open("./output/DFS.txt", "w+")
+        output_name = self.get_output_name()
+        file_out = open(f"./output/DFS{output_name}", "w")
 
         finished_string = ''
         finished_string += f'---------Time elapsed: {end_time}---------\n'
@@ -559,7 +600,11 @@ class Board:
         return found_solution
     
     def Heuristic_Solver(self):
-    
+        
+        # Undo some moves to clear the board
+        while len(self.AI_move_logs) > 0:
+            self.undo_move()
+
         Cc = 7
         Pp = 0.37
         numberiterator = 100000
@@ -576,7 +621,8 @@ class Board:
         endTime = time.time() - startTime
 
         ################## WRITE TO FILE ##################
-        file_out = open("./output/heuristic.txt", "w")
+        output_name = self.get_output_name()
+        file_out = open(f"./output/heuristic{output_name}", "w")
 
         for j in range(len(solution)):
             for i in range(DIMENTION):
@@ -621,9 +667,7 @@ class Board:
         ###################################################
         while len(self.AI_move_logs) > 0:
             self.undo_move()
-        
-        
-        
+            
         return self.Heu_found_solution
     
     def DFS(self, vertex, temporary_solution, level = 0):
@@ -670,9 +714,9 @@ class Board:
         return self.DFS(vertex, temporary_solution, level + 1)
 
     ###################### MAP GENERATOR ######################
-    def map_creation(self):
+    def map_creation(self, size):
 
-        My_map = map_generator()
+        My_map = map_generator(size)
         grid = My_map.map_generation()
         My_map.print_map()
         
@@ -692,13 +736,35 @@ class Board:
     def convert_testing_map(self):
 
         translate_map = copy.deepcopy(self.TESTING_MAP)
+        size = len(translate_map)
 
-        for row in range(BOARD_LENGTH):
-            for col in range(BOARD_LENGTH):
+        for row in range(size):
+            for col in range(size):
                 cell = translate_map[row][col]
                 translate_map[row][col] = TRANSLATE[cell]
 
         return translate_map
+    
+    def read_input(self, input_name, decode = False):
+
+        board=[]
+        with open(f'./input/{input_name}', newline='') as csvfile:
+
+            csvreader = csv.reader(csvfile, delimiter=',')
+
+            for row in csvreader:
+                intRow = [int(element) for element in row]
+                board += [intRow]
+        
+        # Converting map to string
+        if decode:
+            for row in range(len(board)):
+                for col in range(len(board)):
+                    cell = board[row][col]
+                    board[row][col] = DECODE[cell]
+
+        return board
+        
 
 
 # Init map

@@ -20,8 +20,18 @@ Font = [MEDIUM_FONT, LARGE_FONT]
 
 def main():
 
+    # print('Please enter some informations before we start!')
+    # print('If input_name == \'random\' map will be generated randomly follow the random_size')
+    # input_name = input('Your input_name: ')
+    # random_size = 14
+    # if input_name == 'random':
+    #     random_size = int(input('Your random_size: '))
+    input_name = 'random'
+    random_size = 7
+
     #Init game
-    MyGame = Board(Font)
+    MyGame = Board(Font, input_name = input_name, random_size = random_size) 
+    MyGame.make_map()
     message = ""
     found_solution = False
 
@@ -29,7 +39,7 @@ def main():
     content = ["Play Again", "Solution", "User Mode", "->", "Solve All", "<-", "Undo Move", "Submit", "Clear", "DFS", "Heu"]
     width = SCREEN_WIDTH/6
     height = 50
-    x = (X_BOARD + BOARD_LENGTH*CELL_SIZE + SCREEN_WIDTH)/2 - (width)/2
+    x = (MyGame.X_BOARD + MyGame.BOARD_LENGTH*MyGame.CELL_SIZE + SCREEN_WIDTH)/2 - (width)/2
     y = (SCREEN_HEIGHT)/2
 
     # Game Button
@@ -46,7 +56,7 @@ def main():
         MyGame.make_board_all(display_screen)
 
         _, message = MyGame_Button.Button_creation(content[7]) # Create Submit button
-        #MyGame_Button.Button_creation(content[0]) # Create Play Again button
+        # MyGame_Button.Button_creation(content[0]) # Create Play Again button
         MyGame_Button.Button_creation(content[8]) # Create Clear button
 
         if not MyGame.ai_turn:

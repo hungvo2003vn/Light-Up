@@ -1,5 +1,3 @@
-from SETTING import *
-
 #################### CLASS CELL ####################
 class Cell:
 

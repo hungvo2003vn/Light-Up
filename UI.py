@@ -2,7 +2,6 @@ from SETTING import WHITE, LEFT, BLACK, RIGHT
 import pygame as pg
 from pygame.locals import *
 import time
-from Game_Board import Board
 
 def CreateButton(display_screen, x, y, width, height, content, font, content_color, bg_color):
 

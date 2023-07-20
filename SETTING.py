@@ -62,3 +62,7 @@ CROSSLIGHT = [6,14,22]
 TRANSLATE = {
     "--": EMPTY, "b-": NONUMBER, "b0": NUMBER0, "b1": NUMBER1, "b2": NUMBER2, "b3": NUMBER3, "b4": NUMBER4
 }
+
+DECODE = {
+    EMPTY: "--", NONUMBER: "b-", NUMBER0: "b0", NUMBER1: "b1", NUMBER2: "b2", NUMBER3: "b3", NUMBER4: "b4"
+}

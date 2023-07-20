@@ -1,13 +1,13 @@
 import random
 import copy
 from Cell_Board import Cell
-from SETTING import BOARD_LENGTH
 
 class map_generator():
 
-    def __init__(self):
+    def __init__(self, size):
         
-        self.grid = [['--' for _ in range(BOARD_LENGTH)] for _ in range(BOARD_LENGTH)]
+        self.BOARD_LENGTH = size
+        self.grid = [['--' for _ in range(self.BOARD_LENGTH)] for _ in range(self.BOARD_LENGTH)]
         self.grid_solution = copy.deepcopy(self.grid)
         self.PIECES_MAP = copy.deepcopy(self.grid)
         self.black_coordinates = []
@@ -17,7 +17,7 @@ class map_generator():
         self.BLACK_ZERO_RATIO = 0.1
 
     def inside_click(self, x, y):
-        return (x in range(0, BOARD_LENGTH) and y in range(0, BOARD_LENGTH))
+        return (x in range(0, self.BOARD_LENGTH) and y in range(0, self.BOARD_LENGTH))
     
     def valid_click(self, row, col):
 
@@ -47,7 +47,7 @@ class map_generator():
 
         possible_hl = [[row, col]]
 
-        for i in range(1, BOARD_LENGTH):
+        for i in range(1, self.BOARD_LENGTH):
 
             up = [row - i, col]
             down = [row + i, col]
@@ -81,15 +81,15 @@ class map_generator():
     def init_random_black(self):
         
         # Random generate black cell from n -> 2n cells
-        black_pieces = random.randrange(BOARD_LENGTH, 2 * BOARD_LENGTH)
+        black_pieces = random.randrange(self.BOARD_LENGTH, 2 * self.BOARD_LENGTH)
         while len(self.black_coordinates) != black_pieces:
-            x, y = random.randrange(0, BOARD_LENGTH - 1), random.randrange(0, BOARD_LENGTH - 1)
+            x, y = random.randrange(0, self.BOARD_LENGTH - 1), random.randrange(0, self.BOARD_LENGTH - 1)
             if (x, y) not in self.black_coordinates:
                 self.black_coordinates.append((x, y))
         
         # Creating Cell object for each coordinate
-        for y in range(BOARD_LENGTH):
-            for x in range(BOARD_LENGTH):
+        for y in range(self.BOARD_LENGTH):
+            for x in range(self.BOARD_LENGTH):
                 if (y,x) in self.black_coordinates:
                     self.PIECES_MAP[y][x] = Cell(y, x, "b-")
                 else:
@@ -98,8 +98,8 @@ class map_generator():
                     
 
         # Add neighbor
-        for y in range(BOARD_LENGTH):
-            for x in range(BOARD_LENGTH):
+        for y in range(self.BOARD_LENGTH):
+            for x in range(self.BOARD_LENGTH):
 
                 cell = self.get_cell(y, x)
 

@@ -2,10 +2,11 @@ from SETTING import *
 import numpy as np
 from copy import deepcopy
 import random 
-import time
+
 class HBoard:
     def __init__(self, board, numberreadyToBulb = [], numberOfNumberCell = [],numberBulb =[]):
         self.board = deepcopy(board)
+        self.DIMENTION = len(board)
         self.numberreadyToBulb = numberreadyToBulb      
         self.numberOfNumberCell = numberOfNumberCell 
         self.numberBulb = numberBulb                
@@ -23,8 +24,8 @@ class HBoard:
     # return a list of bulb's location
     def readyToBulb(self):
         res = []
-        for i in range(DIMENTION):
-            for j in range(DIMENTION):
+        for i in range(self.DIMENTION):
+            for j in range(self.DIMENTION):
                 if 0<= self.board[i][j] <=5 or self.board[i][j] == BULB  or (self.board[i][j] + 2)%8 ==0: continue
                 res += [(i, j)]
         self.numberreadyToBulb = res
@@ -34,8 +35,8 @@ class HBoard:
     # return a list of cell's location
     def countNumberCell(self):
         count = []
-        for i in range(DIMENTION):
-            for j in range(DIMENTION):
+        for i in range(self.DIMENTION):
+            for j in range(self.DIMENTION):
                 if 0<=self.board[i][j]<=5:
                     count += [(i,j)]
         self.numberOfNumberCell = count
@@ -45,8 +46,8 @@ class HBoard:
     #---- return a list of bulb's location
     def countBulb(self):
         bulbLocal = []
-        for i in range(DIMENTION):
-            for j in range(DIMENTION):
+        for i in range(self.DIMENTION):
+            for j in range(self.DIMENTION):
                 if self.board[i][j]==8:
                     bulbLocal += [(i,j)]
         #self.numberBulb = bulbLocal
@@ -56,16 +57,16 @@ class HBoard:
     #---- return number of cross
     def setCross(self):
         count = 0
-        for i in range(DIMENTION):
-            for j in range(DIMENTION):
+        for i in range(self.DIMENTION):
+            for j in range(self.DIMENTION):
                 if self.board[i][j]==0:
-                    if i < DIMENTION-1 and self.board[i+1][j] == -1:
+                    if i < self.DIMENTION-1 and self.board[i+1][j] == -1:
                         self.board[i+1][j] = -2
                         count +=1
                     if i > 0 and self.board[i-1][j] ==-1:
                         self.board[i-1][j]=-2
                         count +=1
-                    if j< DIMENTION - 1 and self.board[i][j+1] == -1:
+                    if j< self.DIMENTION - 1 and self.board[i][j+1] == -1:
                         self.board[i][j+1]=-2
                         count +=1
                     if j>0 and self.board[i][j-1] == -1:
@@ -80,14 +81,14 @@ class HBoard:
         
         
         #---- check row
-        for i in range(DIMENTION):
+        for i in range(self.DIMENTION):
             start = 0
             j = 0
-            while j < DIMENTION:
+            while j < self.DIMENTION:
                 if self.board[i][j] == BULB:
                     start = j
                     k = start + 1
-                    while k < DIMENTION:
+                    while k < self.DIMENTION:
                         if 0 <= self.board[i][k] <= 5:
                             j = k
                             break
@@ -99,14 +100,14 @@ class HBoard:
                 j += 1
                 
         #---- check col
-        for i in range(DIMENTION):
+        for i in range(self.DIMENTION):
             start = 0
             j = 0  # Introduce a separate variable to track the current row
-            while j < DIMENTION:
+            while j < self.DIMENTION:
                 if self.board[j][i] == BULB:
                     start = j
                     k = start + 1
-                    while k < DIMENTION:
+                    while k < self.DIMENTION:
                         if 0 <= self.board[k][i] <= 5:
                             j = k
                             break
@@ -128,11 +129,11 @@ class HBoard:
             number = self.board[x][y]
             bulb = 0
             if self.board[x][y] == NONUMBER: continue
-            if x+1 < DIMENTION:
+            if x+1 < self.DIMENTION:
                 bulb +=1 if self.board[x+1][y] == BULB else 0
             if x-1 >= 0:
                 bulb +=1 if self.board[x-1][y] == BULB else 0
-            if y+1 < DIMENTION:
+            if y+1 < self.DIMENTION:
                 bulb +=1 if self.board[x][y+1] == BULB else 0
             if y-1 >= 0:
                 bulb +=1 if self.board[x][y-1] == BULB else 0
@@ -145,8 +146,8 @@ class HBoard:
     #---- return number of lighted
     def countLighted(self):
         light = 0
-        for i in range(DIMENTION):
-            for j in range(DIMENTION):
+        for i in range(self.DIMENTION):
+            for j in range(self.DIMENTION):
                 if self.board[i][j] > 5:
                     light += 1
         self.numberLighted = light
@@ -161,9 +162,9 @@ class HBoard:
         countExplore = self.numberExplode
         countNumberExplode = self.numberOfNumberExplode    
         countLight = self.numberLighted
-        #score = countLight // (DIMENTION*DIMENTION -countNumberCell) - countExplore*3 - countNumberExplode*2
+        #score = countLight // (self.DIMENTION*self.DIMENTION -countNumberCell) - countExplore*3 - countNumberExplode*2
         score = countLight - countExplore - countNumberExplode
-        #score = DIMENTION*countLight/(DIMENTION*DIMENTION -countNumberCell) - countExplore/countNumberBulb - (DIMENTION - 1)*countNumberExplode/countNumberCell
+        #score = self.DIMENTION*countLight/(self.DIMENTION*self.DIMENTION -countNumberCell) - countExplore/countNumberBulb - (self.DIMENTION - 1)*countNumberExplode/countNumberCell
         self.score = score
         return score
     
@@ -176,13 +177,13 @@ class HBoard:
             nextcol = bulbLocal[i][1]+1
             prerow = bulbLocal[i][0]-1
             precol = bulbLocal[i][1]-1
-            if nextcol < DIMENTION:
-                for i in range(nextcol, DIMENTION):
+            if nextcol < self.DIMENTION:
+                for i in range(nextcol, self.DIMENTION):
                     if 0 <= self.board[x][i]<=5: break
                     if self.board[x][i] == 8: continue
                     self.board[x][i] +=8
-            if nextrow < DIMENTION:
-                for i in range(nextrow, DIMENTION):
+            if nextrow < self.DIMENTION:
+                for i in range(nextrow, self.DIMENTION):
                     if 0 <= self.board[i][y]<=5: break
                     if self.board[i][y] == 8: continue
                     self.board[i][y] +=8    
@@ -208,16 +209,16 @@ class HBoard:
             prerow = bulbLocal[i][0]-1
             precol = bulbLocal[i][1]-1
             c = 0
-            if nextcol < DIMENTION:
-                for i in range(nextcol, DIMENTION):
+            if nextcol < self.DIMENTION:
+                for i in range(nextcol, self.DIMENTION):
                     if 0 <= self.board[x][i]<=5: break
                     if self.board[x][i] == 8: 
                         c +=1
                         continue
                     self.board[x][i] -=8
                     
-            if nextrow < DIMENTION:
-                for i in range(nextrow, DIMENTION):
+            if nextrow < self.DIMENTION:
+                for i in range(nextrow, self.DIMENTION):
                     if 0 <= self.board[i][y]<=5: break
                     if self.board[i][y] == 8: 
                         c +=1
@@ -247,8 +248,8 @@ class HBoard:
             self.isSolution = False
             return False
         
-        for i in range(DIMENTION):
-            for j in range(DIMENTION):
+        for i in range(self.DIMENTION):
+            for j in range(self.DIMENTION):
                 if self.board[i][j] == EMPTY or self.board[i][j] == CROSS:
                     self.isSolution = False
                     return False
@@ -263,6 +264,7 @@ class HBoard:
 ##############################################################################
 def simulated_annealing(problem, numberiterator):
    
+    size = problem.start.DIMENTION
     current = problem.start
     goalState = problem.goal
     path = []
@@ -283,13 +285,14 @@ def simulated_annealing(problem, numberiterator):
             p = np.exp(E/T)
             if randum < p:
                 current = nextState
-        for i in range(DIMENTION):
+        for i in range(size):
             print(current.board[i])
         print(f'### {current.score}******T={T}******i={t} ###')
     return path
 
 class problem:
     def __init__(self, start , Cc, Pp, numIter):
+        self.DIMENTION = start.DIMENTION
         self.start = start
         self.goal = deepcopy(start)
         self.Cc = Cc
@@ -309,14 +312,14 @@ class problem:
         newBoard = deepcopy(board)
         newBoard.countLighted()
         newBoard.readyToBulb()
-        if newBoard.numberLighted < DIMENTION/2:
+        if newBoard.numberLighted < self.DIMENTION/2:
             p = np.random.rand()
-            if p > newBoard.numberLighted/(DIMENTION*DIMENTION - len(newBoard.numberOfNumberCell)):
+            if p > newBoard.numberLighted/(self.DIMENTION*self.DIMENTION - len(newBoard.numberOfNumberCell)):
                 add = self.addToNextState(newBoard)
                 return (add[0],add[1], "add")
-        if len(newBoard.numberreadyToBulb) < DIMENTION/2:
+        if len(newBoard.numberreadyToBulb) < self.DIMENTION/2:
             p = np.random.rand()
-            if p > len(newBoard.numberreadyToBulb)/(DIMENTION*DIMENTION - len(newBoard.numberOfNumberCell)):
+            if p > len(newBoard.numberreadyToBulb)/(self.DIMENTION*self.DIMENTION - len(newBoard.numberOfNumberCell)):
                 dell = self.delToNextState(newBoard)
                 return (dell[0],dell[1], "dell")
         add = self.addToNextState(newBoard)
@@ -353,7 +356,7 @@ class problem:
         numberBulb = self.setBulb(board)
         board.lightUp(numberBulb)          
         
-        numNewBulb = DIMENTION*2 - len(numberBulb)
+        numNewBulb = self.DIMENTION*2 - len(numberBulb)
         
         newBulbLocation = self.randomeBulb(board,numNewBulb)
         
@@ -376,11 +379,11 @@ class problem:
             y = numberCell[i][1]
             if board.board[x][y] != NONUMBER and board.board[x][y] != NUMBER0:
                 bulb = []
-                if x+1 < DIMENTION:
+                if x+1 < self.DIMENTION:
                     bulb += [(x+1,y)] if board.board[x+1][y] == EMPTY else []
                 if x-1 >= 0:
                     bulb += [(x-1,y)] if board.board[x-1][y] == EMPTY else []
-                if y+1 < DIMENTION:
+                if y+1 < self.DIMENTION:
                     bulb += [(x,y+1)] if board.board[x][y+1] == EMPTY else []
                 if y-1 >= 0:
                     bulb+= [(x,y-1)] if board.board[x][y-1] == EMPTY else []
@@ -404,9 +407,9 @@ class problem:
         score = -1000
         readyToBulb = newBoard.numberreadyToBulb
         
-        if len(readyToBulb) > DIMENTION:
+        if len(readyToBulb) > self.DIMENTION:
             
-            nextBulb = random.sample(readyToBulb, DIMENTION)
+            nextBulb = random.sample(readyToBulb, self.DIMENTION)
             
             for i in range(len(nextBulb)):                
                 tmpBoard = deepcopy(newBoard)
@@ -453,8 +456,8 @@ class problem:
         score = -1000
         curBulb = curBoard.numberBulb
         
-        if len(curBulb) > DIMENTION:
-            delBulb = random.sample(curBulb, DIMENTION)
+        if len(curBulb) > self.DIMENTION:
+            delBulb = random.sample(curBulb, self.DIMENTION)
             for i in range(len(delBulb)):
                 tmpBoard = deepcopy(curBoard)
                 
@@ -500,7 +503,7 @@ class problem:
         curBulb = curBoard.numberBulb
         
         if len(readyToBulb) > 0 and len(curBulb) > 0:
-            for i in range(DIMENTION):
+            for i in range(self.DIMENTION):
                 if curBulb:
                     Bulb = random.sample(curBulb,1)
                     if readyToBulb:
