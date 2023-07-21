@@ -622,7 +622,7 @@ class Board:
 
         ################## WRITE TO FILE ##################
         output_name = self.get_output_name()
-        file_out = open(f"./output/heuristic{output_name}", "w")
+        file_out = open(f"./output/Heuristic{output_name}", "w")
 
         for j in range(len(solution)):
             for i in range(DIMENTION):

@@ -350,7 +350,9 @@ class problem:
 
         return newBulb
     
-    def prepareToSearch(self,board: HBoard):
+    def prepareToSearch(self,old_board: HBoard):
+
+        board = deepcopy(old_board) ########### The bug that made the Play Again button did not work
 
         board.setCross()
         numberBulb = self.setBulb(board)

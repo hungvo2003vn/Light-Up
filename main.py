@@ -4,7 +4,7 @@ from pygame.locals import *
 from SETTING import *
 from UI import *
 from Game_Board import *
-import threading
+import tracemalloc
 
 # Init pygame
 pg.init()
@@ -26,7 +26,7 @@ def main():
     # random_size = 14
     # if input_name == 'random':
     #     random_size = int(input('Your random_size: '))
-    input_name = 'random'
+    input_name = '7x7hard.csv'
     random_size = 7
 
     #Init game
@@ -56,7 +56,7 @@ def main():
         MyGame.make_board_all(display_screen)
 
         _, message = MyGame_Button.Button_creation(content[7]) # Create Submit button
-        # MyGame_Button.Button_creation(content[0]) # Create Play Again button
+        MyGame_Button.Button_creation(content[0]) # Create Play Again button
         MyGame_Button.Button_creation(content[8]) # Create Clear button
 
         if not MyGame.ai_turn:
@@ -75,9 +75,37 @@ def main():
                         pg.display.update()
 
                         #Solving
-                        found_solution = MyGame.DFS_solver()
-                        time.sleep(0.5)
+                        tracemalloc.start()
 
+                        found_solution = MyGame.DFS_solver() ##### Solution function
+
+                        snapshot = tracemalloc.take_snapshot()
+                        top_stats = snapshot.statistics('lineno')
+                        tracemalloc.stop()
+                        
+                        # Get Memory statistic
+                        tracing_string = "--------Memory statistic for DFS solution--------\n"
+                        size, count, avg = 0, 0, 0
+                        for stat in top_stats:
+                            size += stat.size
+                            count += stat.count
+                        avg = int(size/count)
+                        tracing_string +=f'+ Total memory used for DFS solution: {int(size/1024)} KiB\n'
+                        tracing_string += f'+ Total number of allocations: {count}\n'
+                        tracing_string += f'+ The average memory usage per allocation: {avg} B\n'
+                        tracing_string += '--------------------------------------------------'
+
+                        ################## WRITE TO FILE ##################
+                        output_name = MyGame.get_output_name()
+                        file_out = open(f"./output/DFS{output_name}", "a")
+                        file_out.write('\n' + tracing_string)
+                        file_out.close()
+
+                        # Print Memory statistic
+                        print(tracing_string)
+
+                        # Time sleep loading the status
+                        time.sleep(0.5)
                         solution_content = "Solution DFS found!"
                         if not found_solution:
                             solution_content = "No DFS solution!"
@@ -111,9 +139,37 @@ def main():
                         pg.display.update()
 
                         #Solving
-                        found_solution = MyGame.Heuristic_Solver()
-                        time.sleep(0.5)
+                        tracemalloc.start()
 
+                        found_solution = MyGame.Heuristic_Solver() ##### Solution function
+
+                        snapshot = tracemalloc.take_snapshot()
+                        top_stats = snapshot.statistics('lineno')
+                        tracemalloc.stop()
+                        
+                        # Get Memory statistic
+                        tracing_string = "--------Memory statistic for Heuristic solution--------\n"
+                        size, count, avg = 0, 0, 0
+                        for stat in top_stats:
+                            size += stat.size
+                            count += stat.count
+                        avg = int(size/count)
+                        tracing_string +=f'+ Total memory used for Heuristic solution: {int(size/1024)} KiB\n'
+                        tracing_string += f'+ Total number of allocations: {count}\n'
+                        tracing_string += f'+ The average memory usage per allocation: {avg} B\n'
+                        tracing_string += '--------------------------------------------------'
+
+                        ################## WRITE TO FILE ##################
+                        output_name = MyGame.get_output_name()
+                        file_out = open(f"./output/Heuristic{output_name}", "a")
+                        file_out.write('\n' + tracing_string)
+                        file_out.close()
+
+                        # Print Memory statistic
+                        print(tracing_string)
+
+                        # Time sleep loading the status
+                        time.sleep(0.5)
                         solution_content = "Solution Heuristic found!"
                         if not found_solution:
                             solution_content = "No Heuristic solution!"
