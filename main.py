@@ -10,7 +10,7 @@ import tracemalloc
 pg.init()
 pg.display.set_caption("Light Up")
 
-display_screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+# display_screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 #Font size
 MEDIUM_FONT = pg.font.Font("OpenSans-Regular.ttf", 28)
@@ -20,17 +20,47 @@ Font = [MEDIUM_FONT, LARGE_FONT]
 
 def main():
 
-    # print('Please enter some informations before we start!')
-    # print('If input_name == \'random\' map will be generated randomly follow the random_size')
-    # input_name = input('Your input_name: ')
-    # random_size = 14
-    # if input_name == 'random':
-    #     random_size = int(input('Your random_size: '))
-    input_name = '7x7hard.csv'
-    random_size = 7
+    print('Please enter some informations before we start!')
+    
+    input_dimension = ''
+    input_level = ''
+    input_name = ''
+    israndom = ''
+    valid_random = ['y', 'n']
+    valid_level = ['easy', 'normal', 'hard']
+    valid_dimension = ['7', '10', '14']
+
+    # Verify input_dimension
+    input_dimension = input(f'Your size (7, 10 or 14): ')
+    while input_dimension not in valid_dimension:
+        print('Please just enter size 7, 10 or 14')
+        input_dimension = input(f'Your size (7, 10 or 14): ')
+    
+    # Verify israndom
+    israndom=input('Do You want a random map or not? (y/n): ')
+    while israndom not in valid_random:
+      print("please just enter y or n ")
+      israndom=input('Do You want a random map or not? (y/n): ')
+      
+    if israndom == 'n':
+        
+        # Verify input_level
+        input_level = input('Your input level (easy, normal or hard): ')
+        while input_level not in valid_level:
+            print('Please just enter level easy, normal or hard')
+            input_level = input('Your input level (easy, normal or hard): ')
+        
+        input_name = input_dimension + input_level # Final input_name
+
+    elif israndom == 'y':
+        input_name = 'random' # Final input_name = 'random'
+    
+    input_dimension = int(input_dimension) # Convert to integer
+    print("Have a fun game <3 !")
 
     #Init game
-    MyGame = Board(Font, input_name = input_name, random_size = random_size) 
+    display_screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    MyGame = Board(Font, input_name = input_name, random_size = input_dimension) 
     MyGame.make_map()
     message = ""
     found_solution = False

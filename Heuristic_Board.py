@@ -50,7 +50,7 @@ class HBoard:
             for j in range(self.DIMENTION):
                 if self.board[i][j]==8:
                     bulbLocal += [(i,j)]
-        #self.numberBulb = bulbLocal
+        self.numberBulb = bulbLocal
         return bulbLocal
     
     #---- count number of cross in board (that can't put bulb)
@@ -243,16 +243,16 @@ class HBoard:
 
     #---- check if the board is a solution
     def checkEnd(self):
-
-        if self.countNumberExplode() > 0 or self.countExplode() > 0:
-            self.isSolution = False
-            return False
         
         for i in range(self.DIMENTION):
             for j in range(self.DIMENTION):
                 if self.board[i][j] == EMPTY or self.board[i][j] == CROSS:
                     self.isSolution = False
                     return False
+        
+        if self.countNumberExplode() > 0 or self.countExplode() > 0:
+            self.isSolution = False
+            return False
         
         self.isSolution = True
         return True
@@ -262,6 +262,7 @@ class HBoard:
 ########################### SIMULATED HEURISTIC ####################################
 ##############################################################################
 ##############################################################################
+import time
 def simulated_annealing(problem, numberiterator):
    
     size = problem.start.DIMENTION
@@ -269,22 +270,28 @@ def simulated_annealing(problem, numberiterator):
     goalState = problem.goal
     path = []
     for t in range(int(numberiterator)):
+
         T = problem.schedule(t) 
         nextState, nextValue, type = problem.getNeighbors(current)
         if current.checkEnd():
+            path += [deepcopy(current)]
             return path
         if nextValue > goalState.score:
-            goalState = nextState
-            path += [goalState]
+            # goalState = nextState
+            # path += [goalState]
+            goalState = deepcopy(nextState)
+            path += [deepcopy(goalState)]
             
         if nextValue > current.score:  
-            current = nextState
+            # current = nextState
+            current = deepcopy(nextState)
         else:
             randum = np.random.rand()
             E = -abs(current.score - nextValue)
             p = np.exp(E/T)
             if randum < p:
-                current = nextState
+                # current = nextState
+                current = deepcopy(nextState)
         for i in range(size):
             print(current.board[i])
         print(f'### {current.score}******T={T}******i={t} ###')
@@ -293,8 +300,8 @@ def simulated_annealing(problem, numberiterator):
 class problem:
     def __init__(self, start , Cc, Pp, numIter):
         self.DIMENTION = start.DIMENTION
-        self.start = start
-        self.goal = deepcopy(start)
+        self.start = None #start
+        self.goal = None #deepcopy(start)
         self.Cc = Cc
         self.Pp = Pp
         self.numIter= numIter
@@ -353,7 +360,7 @@ class problem:
     def prepareToSearch(self,old_board: HBoard):
 
         board = deepcopy(old_board) ########### The bug that made the Play Again button did not work
-
+        # board = old_board
         board.setCross()
         numberBulb = self.setBulb(board)
         board.lightUp(numberBulb)          
@@ -371,6 +378,7 @@ class problem:
         board.countNumberExplode()
         board.readyToBulb()
         board.heuristic()
+
         return board
     #---- set the bulb to match with the number in cell (not care about the explode)
     def setBulb(self,board):

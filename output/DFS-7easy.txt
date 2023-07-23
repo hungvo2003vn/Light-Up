@@ -1,0 +1,667 @@
+############# Path branch: 1 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, fr, f-, b2]
+[b-, fr, f-, f-, f-, b-, fr]
+[f-, f-, fr, f-, f-, f-, f-]
+[fr, b2, f-, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 2 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, fr, f-, b2]
+[b-, fr, f-, f-, f-, b-, fr]
+[f-, f-, f-, f-, f-, f-, f-]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 3 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, fr, f-, b2]
+[b-, fr, f-, f-, f-, b-, fr]
+[f-, f-, --, f-, f-, f-, f-]
+[fr, b2, --, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 4 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, fr, f-, b2]
+[b-, fr, f-, f-, f-, b-, --]
+[f-, f-, fr, f-, f-, f-, f-]
+[fr, b2, f-, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 5 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, fr, f-, b2]
+[b-, fr, f-, f-, f-, b-, f-]
+[f-, f-, f-, f-, f-, f-, fr]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 6 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, fr, f-, b2]
+[b-, fr, f-, f-, f-, b-, f-]
+[f-, f-, f-, f-, f-, f-, fr]
+[fr, b2, --, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 7 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, fr, f-, b2]
+[b-, fr, f-, f-, f-, b-, --]
+[f-, f-, f-, f-, f-, f-, --]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 8 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, fr, f-, b2]
+[b-, fr, f-, f-, f-, b-, --]
+[f-, f-, --, f-, f-, f-, --]
+[fr, b2, --, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 9 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, fr, f-, b2]
+[b-, f-, f-, f-, f-, b-, fr]
+[f-, fr, f-, f-, f-, f-, f-]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 10 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, fr, f-, b2]
+[b-, f-, --, f-, f-, b-, fr]
+[f-, fr, f-, f-, f-, f-, f-]
+[fr, b2, --, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 11 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, fr, f-, b2]
+[b-, --, f-, f-, f-, b-, fr]
+[f-, f-, fr, f-, f-, f-, f-]
+[fr, b2, f-, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 12 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, fr, f-, b2]
+[b-, --, f-, f-, f-, b-, fr]
+[f-, --, f-, f-, f-, f-, f-]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 13 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, fr, f-, b2]
+[b-, --, --, f-, f-, b-, fr]
+[f-, --, --, f-, f-, f-, f-]
+[fr, b2, --, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 14 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, fr, f-, b2]
+[b-, f-, f-, f-, f-, b-, --]
+[f-, fr, f-, f-, f-, f-, f-]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 15 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, fr, f-, b2]
+[b-, f-, --, f-, f-, b-, --]
+[f-, fr, f-, f-, f-, f-, f-]
+[fr, b2, --, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 16 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, fr, f-, b2]
+[b-, --, f-, f-, f-, b-, --]
+[f-, f-, fr, f-, f-, f-, f-]
+[fr, b2, f-, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 17 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, fr, f-, b2]
+[b-, --, f-, f-, f-, b-, f-]
+[f-, f-, f-, f-, f-, f-, fr]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 18 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, fr, f-, b2]
+[b-, --, --, f-, f-, b-, f-]
+[f-, f-, f-, f-, f-, f-, fr]
+[fr, b2, --, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 19 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, fr, f-, b2]
+[b-, --, f-, f-, f-, b-, --]
+[f-, --, f-, f-, f-, f-, --]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 20 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, fr, f-, b2]
+[b-, --, --, f-, f-, b-, --]
+[f-, --, --, f-, f-, f-, --]
+[fr, b2, --, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 21 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, f-, f-, b2]
+[b-, fr, f-, f-, f-, b-, fr]
+[f-, f-, fr, f-, f-, f-, f-]
+[fr, b2, f-, f-, fr, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 22 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, --, f-, b2]
+[b-, fr, f-, f-, f-, b-, fr]
+[f-, f-, fr, f-, f-, f-, f-]
+[fr, b2, f-, f-, --, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 23 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, f-, f-, b2]
+[b-, fr, f-, f-, f-, b-, fr]
+[f-, f-, f-, f-, fr, f-, f-]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 24 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, f-, f-, b2]
+[b-, fr, f-, f-, f-, b-, fr]
+[f-, f-, f-, f-, fr, f-, f-]
+[fr, b2, --, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 25 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, --, f-, b2]
+[b-, fr, f-, f-, f-, b-, fr]
+[f-, f-, f-, f-, --, f-, f-]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 26 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, f-, f-, b2]
+[b-, fr, f-, f-, f-, b-, fr]
+[f-, f-, --, f-, f-, f-, f-]
+[fr, b2, f-, f-, fr, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 27 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, --, f-, b2]
+[b-, fr, f-, f-, f-, b-, fr]
+[f-, f-, --, f-, --, f-, f-]
+[fr, b2, --, f-, --, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 28 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, f-, f-, b2]
+[b-, fr, f-, f-, f-, b-, --]
+[f-, f-, fr, f-, f-, f-, f-]
+[fr, b2, f-, f-, fr, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 29 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, --, f-, b2]
+[b-, fr, f-, f-, f-, b-, --]
+[f-, f-, fr, f-, f-, f-, f-]
+[fr, b2, f-, f-, --, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 30 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, f-, f-, b2]
+[b-, fr, f-, f-, f-, b-, --]
+[f-, f-, f-, f-, fr, f-, f-]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 31 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, f-, f-, b2]
+[b-, fr, f-, f-, f-, b-, --]
+[f-, f-, f-, f-, fr, f-, f-]
+[fr, b2, --, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 32 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, --, f-, b2]
+[b-, fr, f-, f-, f-, b-, f-]
+[f-, f-, f-, f-, f-, f-, fr]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 33 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, f-, f-, b2]
+[b-, fr, f-, f-, f-, b-, f-]
+[f-, f-, f-, f-, f-, f-, fr]
+[fr, b2, f-, f-, fr, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 34 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, --, f-, b2]
+[b-, fr, f-, f-, f-, b-, f-]
+[f-, f-, f-, f-, f-, f-, fr]
+[fr, b2, --, f-, --, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 35 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, --, f-, b2]
+[b-, fr, f-, f-, f-, b-, --]
+[f-, f-, f-, f-, --, f-, --]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 36 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, f-, f-, b2]
+[b-, fr, f-, f-, f-, b-, --]
+[f-, f-, --, f-, f-, f-, --]
+[fr, b2, f-, f-, fr, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 37 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, --, f-, b2]
+[b-, fr, f-, f-, f-, b-, --]
+[f-, f-, --, f-, --, f-, --]
+[fr, b2, --, f-, --, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 38 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, f-, f-, b2]
+[b-, f-, f-, f-, fr, b-, fr]
+[f-, fr, f-, f-, f-, f-, f-]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 39 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, f-, f-, b2]
+[b-, f-, f-, f-, fr, b-, fr]
+[f-, fr, f-, f-, f-, f-, f-]
+[fr, b2, --, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 40 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, f-, f-, b2]
+[b-, f-, f-, f-, fr, b-, fr]
+[f-, f-, fr, f-, f-, f-, f-]
+[fr, b2, f-, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 41 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, f-, f-, b2]
+[b-, f-, f-, f-, fr, b-, fr]
+[f-, --, f-, f-, f-, f-, f-]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 42 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, f-, f-, b2]
+[b-, f-, f-, f-, fr, b-, fr]
+[f-, --, --, f-, f-, f-, f-]
+[fr, b2, --, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 43 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, f-, f-, b2]
+[b-, f-, f-, f-, fr, b-, --]
+[f-, fr, f-, f-, f-, f-, f-]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 44 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, f-, f-, b2]
+[b-, f-, f-, f-, fr, b-, --]
+[f-, fr, f-, f-, f-, f-, f-]
+[fr, b2, --, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 45 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, f-, f-, b2]
+[b-, f-, f-, f-, fr, b-, --]
+[f-, f-, fr, f-, f-, f-, f-]
+[fr, b2, f-, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 46 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, f-, f-, b2]
+[b-, f-, f-, f-, fr, b-, f-]
+[f-, f-, f-, f-, f-, f-, fr]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 47 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, f-, f-, b2]
+[b-, f-, f-, f-, fr, b-, f-]
+[f-, f-, f-, f-, f-, f-, fr]
+[fr, b2, --, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 48 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, f-, f-, b2]
+[b-, f-, f-, f-, fr, b-, --]
+[f-, --, f-, f-, f-, f-, --]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 49 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, f-, f-, b2]
+[b-, f-, f-, f-, fr, b-, --]
+[f-, --, --, f-, f-, f-, --]
+[fr, b2, --, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 50 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, --, f-, b2]
+[b-, f-, f-, f-, --, b-, fr]
+[f-, fr, f-, f-, f-, f-, f-]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 51 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, f-, f-, b2]
+[b-, f-, --, f-, f-, b-, fr]
+[f-, fr, f-, f-, f-, f-, f-]
+[fr, b2, f-, f-, fr, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 52 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, --, f-, b2]
+[b-, f-, --, f-, --, b-, fr]
+[f-, fr, f-, f-, f-, f-, f-]
+[fr, b2, --, f-, --, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 53 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, f-, f-, b2]
+[b-, --, f-, f-, f-, b-, fr]
+[f-, f-, fr, f-, f-, f-, f-]
+[fr, b2, f-, f-, fr, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 54 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, --, f-, b2]
+[b-, --, f-, f-, --, b-, fr]
+[f-, f-, fr, f-, f-, f-, f-]
+[fr, b2, f-, f-, --, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 55 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, f-, f-, b2]
+[b-, --, f-, f-, f-, b-, fr]
+[f-, f-, f-, f-, fr, f-, f-]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 56 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, f-, f-, b2]
+[b-, --, --, f-, f-, b-, fr]
+[f-, f-, f-, f-, fr, f-, f-]
+[fr, b2, --, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 57 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, --, f-, b2]
+[b-, --, f-, f-, --, b-, fr]
+[f-, --, f-, f-, --, f-, f-]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 58 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, f-, f-, b2]
+[b-, --, --, f-, f-, b-, fr]
+[f-, --, --, f-, f-, f-, f-]
+[fr, b2, f-, f-, fr, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 59 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, --, f-, b2]
+[b-, --, --, f-, --, b-, fr]
+[f-, --, --, f-, --, f-, f-]
+[fr, b2, --, f-, --, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 60 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, --, f-, b2]
+[b-, f-, f-, f-, --, b-, --]
+[f-, fr, f-, f-, f-, f-, f-]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 61 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, f-, f-, b2]
+[b-, f-, --, f-, f-, b-, --]
+[f-, fr, f-, f-, f-, f-, f-]
+[fr, b2, f-, f-, fr, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 62 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, f-, b0, f-, --, f-, b2]
+[b-, f-, --, f-, --, b-, --]
+[f-, fr, f-, f-, f-, f-, f-]
+[fr, b2, --, f-, --, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 63 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, f-, f-, b2]
+[b-, --, f-, f-, f-, b-, --]
+[f-, f-, fr, f-, f-, f-, f-]
+[fr, b2, f-, f-, fr, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 64 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, --, f-, b2]
+[b-, --, f-, f-, --, b-, --]
+[f-, f-, fr, f-, f-, f-, f-]
+[fr, b2, f-, f-, --, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 65 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, f-, f-, b2]
+[b-, --, f-, f-, f-, b-, --]
+[f-, f-, f-, f-, fr, f-, f-]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 66 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, f-, f-, b2]
+[b-, --, --, f-, f-, b-, --]
+[f-, f-, f-, f-, fr, f-, f-]
+[fr, b2, --, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 67 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, --, f-, b2]
+[b-, --, f-, f-, --, b-, f-]
+[f-, f-, f-, f-, f-, f-, fr]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 68 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, f-, f-, b2]
+[b-, --, --, f-, f-, b-, f-]
+[f-, f-, f-, f-, f-, f-, fr]
+[fr, b2, f-, f-, fr, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 69 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, --, f-, b2]
+[b-, --, --, f-, --, b-, f-]
+[f-, f-, f-, f-, f-, f-, fr]
+[fr, b2, --, f-, --, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 70 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, --, f-, b2]
+[b-, --, f-, f-, --, b-, --]
+[f-, --, f-, f-, --, f-, --]
+[fr, b2, fr, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 71 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, f-, f-, b2]
+[b-, --, --, f-, f-, b-, --]
+[f-, --, --, f-, f-, f-, --]
+[fr, b2, f-, f-, fr, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 72 #############
+[fr, b1, f-, fr, b-, fr, f-]
+[f-, --, b0, f-, --, f-, b2]
+[b-, --, --, f-, --, b-, --]
+[f-, --, --, f-, --, f-, --]
+[fr, b2, --, f-, --, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: False, Message: Wrong num of neighbors!---------
+############# Path branch: 73 #############
+[fr, b1, f-, fr, b-, f-, fr]
+[f-, f-, b0, f-, fr, f-, b2]
+[b-, fr, f-, f-, f-, b-, fr]
+[f-, f-, fr, f-, f-, f-, f-]
+[fr, b2, f-, f-, f-, f-, b-]
+[b3, fr, f-, f-, b2, fr, f-]
+[fr, f-, b-, f-, fr, b3, fr]
+---------Game Over: True, Message: Valid Solution---------
+---------Time elapsed: 0.10300421714782715---------
+Set Cross: [(0, 2), (2, 2), (1, 1), (1, 3)]
+Set Lights: [(4, 0), (6, 0), (5, 1), (5, 5), (6, 4), (6, 6), (0, 0), (0, 3), (0, 6), (1, 4), (2, 1), (2, 6), (3, 2)]
+Number of vertexes in Tree: 19
+Number of visited vertexes: 302
+--------Memory statistic for DFS solution--------
++ Total memory used for DFS solution: 26 KiB
++ Total number of allocations: 66
++ The average memory usage per allocation: 403 B
+--------------------------------------------------

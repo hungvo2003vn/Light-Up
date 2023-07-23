@@ -459,11 +459,12 @@ class Board:
                     
                     # Marked as X
                     if neighbor.value == '--' or neighbor.value == 'f-':
-                        # # Make move
-                        # self.make_move(neighbor.pos, RIGHT)
+                        
                         # Add to Xcross solution
-                        self.Solutions_Xcross.append(neighbor.pos)
+                        if neighbor.pos not in self.Solutions_Xcross:
+                            self.Solutions_Xcross.append(neighbor.pos)
 
+                    # All the neighbor cell will be removed from the white list
                     # Remove 
                     try:
                         self.White_cells.remove(neighbor)
@@ -475,13 +476,12 @@ class Board:
 
                 for neighbor in cell.neighbors:
                     
-                    #if neighbor.value[0] != 'b' and not neighbor.is_bulb:
                     if neighbor.value == '--':
-                        # Make move
-                        self.make_move(neighbor.pos, LEFT)
-                        # Add to solution
-                        self.DFS_Solutions.append(neighbor.pos)
+                        
+                        self.make_move(neighbor.pos, LEFT) # Make move
+                        self.DFS_Solutions.append(neighbor.pos) # Add to solution
 
+                        # All the neighbor cell will be removed from the white list
                         possible_hl = self.possible_highlight(neighbor.pos)
                         for pos in possible_hl:
                             illuminated_cell = self.get_value(pos[0], pos[1])
@@ -609,13 +609,17 @@ class Board:
         Pp = 0.37
         numberiterator = 100000
         
+        # Convert to number map
         state = self.convert_testing_map()
-        old_state = deepcopy(state)
         boardFirst = HBoard(state)
         
+        # Init Problem
         s = problem(boardFirst, Cc,Pp,numberiterator)
-        s.prepareToSearch(boardFirst)
+        boardFirst = s.prepareToSearch(boardFirst) # Fix the bug
+        s.start = deepcopy(boardFirst)
+        s.goal = deepcopy(boardFirst)
         
+        # Start simulating
         startTime = time.time()
         solution = simulated_annealing(s, numberiterator)
         endTime = time.time() - startTime
@@ -637,7 +641,15 @@ class Board:
         file_out.write('Solution: ')
 
         path_string = ''
-        path = solution[-1].numberBulb
+        path = []
+        if len(solution) > 0:
+            # path = solution[-1].numberBulb
+            solution_board = solution[-1].board
+            for r in range(len(solution_board)):
+                for c in range(len(solution_board)):
+                    if solution_board[r][c]  == 8:
+                        path.append((r, c))
+        # path = self.make_unique(path_list = path)
 
         new_path = []
         for step in path:
@@ -667,7 +679,10 @@ class Board:
         ###################################################
         while len(self.AI_move_logs) > 0:
             self.undo_move()
-            
+        
+        boardFirst = None
+        s = None
+
         return self.Heu_found_solution
     
     def DFS(self, vertex, temporary_solution, level = 0):
@@ -748,7 +763,7 @@ class Board:
     def read_input(self, input_name, decode = False):
 
         board=[]
-        with open(f'./input/{input_name}', newline='') as csvfile:
+        with open(f'./input/{input_name}.csv', newline='') as csvfile:
 
             csvreader = csv.reader(csvfile, delimiter=',')
 
@@ -764,6 +779,14 @@ class Board:
                     board[row][col] = DECODE[cell]
 
         return board
+    
+    def make_unique(self, path_list):
+        path = []
+        for pos in path_list:
+            if pos not in path:
+                path.append(pos)
+
+        return path
         
 
 
